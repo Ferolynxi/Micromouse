@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="https://wolles-elektronikkiste.de/xmlrpc.php">
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<link rel="alternate" hreflang="de" href="https://wolles-elektronikkiste.de/esp32-mit-arduino-code-programmieren" />
+<link rel="alternate" hreflang="en" href="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code" />
+<link rel="alternate" hreflang="x-default" href="https://wolles-elektronikkiste.de/esp32-mit-arduino-code-programmieren" />
+
+	<!-- This site is optimized with the Yoast SEO plugin v20.13 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Programming the ESP32 with Arduino Code &bull; Wolles Elektronikkiste</title>
+	<meta name="description" content="I introduce the ESP32 and its main features. In particular, I will discuss the differences to the Arduino (AVR) boards." />
+	<link rel="canonical" href="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Programming the ESP32 with Arduino Code &bull; Wolles Elektronikkiste" />
+	<meta property="og:description" content="I introduce the ESP32 and its main features. In particular, I will discuss the differences to the Arduino (AVR) boards." />
+	<meta property="og:url" content="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code" />
+	<meta property="og:site_name" content="Wolles Elektronikkiste" />
+	<meta property="article:published_time" content="2021-07-23T11:03:30+00:00" />
+	<meta property="article:modified_time" content="2023-02-06T16:52:01+00:00" />
+	<meta property="og:image" content="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="1200" />
+	<meta property="og:image:type" content="image/png" />
+	<meta name="author" content="Wolfgang Ewald" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="Wolfgang Ewald" />
+	<meta name="twitter:label2" content="Est. reading time" />
+	<meta name="twitter:data2" content="19 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#article","isPartOf":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code"},"author":{"name":"Wolfgang Ewald","@id":"https://wolles-elektronikkiste.de/en#/schema/person/b774e4d64b4766889a2f7c6e5ec85b46"},"headline":"Programming the ESP32 with Arduino Code","datePublished":"2021-07-23T11:03:30+00:00","dateModified":"2023-02-06T16:52:01+00:00","mainEntityOfPage":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code"},"wordCount":3189,"commentCount":1,"publisher":{"@id":"https://wolles-elektronikkiste.de/en#/schema/person/b774e4d64b4766889a2f7c6e5ec85b46"},"image":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#primaryimage"},"thumbnailUrl":"https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png","keywords":["ADC","Arduino","DAC","deep sleep","ESP32","ESP32-WROOM-32","frequency","I2C","light sleep","Pinout","PWM","resolution","sleep","SPI","Touch","UART"],"articleSection":["Boards and Microcontrollers"],"inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#respond"]}]},{"@type":"WebPage","@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code","url":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code","name":"Programming the ESP32 with Arduino Code &bull; Wolles Elektronikkiste","isPartOf":{"@id":"https://wolles-elektronikkiste.de/en#website"},"primaryImageOfPage":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#primaryimage"},"image":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#primaryimage"},"thumbnailUrl":"https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png","datePublished":"2021-07-23T11:03:30+00:00","dateModified":"2023-02-06T16:52:01+00:00","description":"I introduce the ESP32 and its main features. In particular, I will discuss the differences to the Arduino (AVR) boards.","breadcrumb":{"@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#primaryimage","url":"https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png","contentUrl":"https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png","width":1200,"height":1200},{"@type":"BreadcrumbList","@id":"https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Startseite","item":"https://wolles-elektronikkiste.de/en"},{"@type":"ListItem","position":2,"name":"Programming the ESP32 with Arduino Code"}]},{"@type":"WebSite","@id":"https://wolles-elektronikkiste.de/en#website","url":"https://wolles-elektronikkiste.de/en","name":"Wolles Elektronikkiste","description":"Die wunderbare Welt der Elektronik","publisher":{"@id":"https://wolles-elektronikkiste.de/en#/schema/person/b774e4d64b4766889a2f7c6e5ec85b46"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://wolles-elektronikkiste.de/en?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://wolles-elektronikkiste.de/en#/schema/person/b774e4d64b4766889a2f7c6e5ec85b46","name":"Wolfgang Ewald","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://wolles-elektronikkiste.de/en#/schema/person/image/","url":"https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/Logo-e1553511130707.png","contentUrl":"https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/Logo-e1553511130707.png","width":512,"height":512,"caption":"Wolfgang Ewald"},"logo":{"@id":"https://wolles-elektronikkiste.de/en#/schema/person/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Wolles Elektronikkiste &raquo; Feed" href="https://wolles-elektronikkiste.de/en/feed" />
+<link rel="alternate" type="application/rss+xml" title="Wolles Elektronikkiste &raquo; Comments Feed" href="https://wolles-elektronikkiste.de/en/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Wolles Elektronikkiste &raquo; Programming the ESP32 with Arduino Code Comments Feed" href="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code/feed" />
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/wolles-elektronikkiste.de\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff","\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css' href='https://wolles-elektronikkiste.de/wp-includes/css/dist/block-library/style.min.css?ver=6.3' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='wpml-blocks-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/sitepress-multilingual-cms/dist/css/blocks/styles.css?ver=4.6.5' type='text/css' media='all' />
+<link rel='stylesheet' id='stcr-font-awesome-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/font-awesome.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='stcr-style-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/stcr-style.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='wpml-menu-item-0-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/menu-item/style.min.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='cmplz-general-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/complianz-gdpr/assets/css/cookieblocker.min.css?ver=6.5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='amora-style-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/style.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='amora-title-font-css' href='//wolles-elektronikkiste.de/wp-content/uploads/omgf/amora-title-font/amora-title-font.css?ver=1673087168' type='text/css' media='all' />
+<link rel='stylesheet' id='amora-body-font-css' href='//wolles-elektronikkiste.de/wp-content/uploads/omgf/amora-body-font/amora-body-font.css?ver=1673087168' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/assets/font-awesome/css/font-awesome.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/assets/bootstrap/css/bootstrap.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='hover-css-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/assets/css/hover.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='swiper-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/assets/css/swiper.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='amora-main-theme-style-css' href='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/assets/theme-styles/css/custom.css?ver=1674159086' type='text/css' media='all' />
+<link rel='stylesheet' id='slb_core-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/client/css/app.css?ver=2.9.3' type='text/css' media='all' />
+<link rel='stylesheet' id='katex-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/katex/assets/katex-0.13.13/katex.min.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='enlighterjs-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/enlighter/cache/enlighterjs.min.css?ver=iKDAv2egpu8eKSw' type='text/css' media='all' />
+<script type='text/javascript' id='wpml-cookie-js-extra'>
+/* <![CDATA[ */
+var wpml_cookies = {"wp-wpml_current_language":{"value":"en","expires":1,"path":"\/"}};
+var wpml_cookies = {"wp-wpml_current_language":{"value":"en","expires":1,"path":"\/"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/sitepress-multilingual-cms/res/js/cookies/language-cookie.js?ver=4.6.5' id='wpml-cookie-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/jquery/jquery.min.js?ver=3.7.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' id='jquery-migrate-js'></script>
+<script type='text/javascript' id='amora-externaljs-js-extra'>
+/* <![CDATA[ */
+var menu_obj = {"menu_text":"Browse..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/js/external.js?ver=20120206' id='amora-externaljs-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/imagesloaded.min.js?ver=4.1.4' id='imagesloaded-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/masonry.min.js?ver=4.2.2' id='masonry-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b' id='jquery-masonry-js'></script>
+<script type='text/javascript' id='amora-custom-js-js-extra'>
+/* <![CDATA[ */
+var slider_object = {"speed":"500","autoplay":"5000","effect":"fade"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/js/custom.js?ver=6.3' id='amora-custom-js-js'></script>
+<link rel="https://api.w.org/" href="https://wolles-elektronikkiste.de/en/wp-json/" /><link rel="alternate" type="application/json" href="https://wolles-elektronikkiste.de/en/wp-json/wp/v2/posts/12177" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://wolles-elektronikkiste.de/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.3" />
+<link rel='shortlink' href='https://wolles-elektronikkiste.de/en?p=12177' />
+<link rel="alternate" type="application/json+oembed" href="https://wolles-elektronikkiste.de/en/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwolles-elektronikkiste.de%2Fen%2Fprogramming-the-esp32-with-arduino-code" />
+<link rel="alternate" type="text/xml+oembed" href="https://wolles-elektronikkiste.de/en/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwolles-elektronikkiste.de%2Fen%2Fprogramming-the-esp32-with-arduino-code&#038;format=xml" />
+<meta name="generator" content="WPML ver:4.6.5 stt:1,3;" />
+<style>.cmplz-hidden{display:none!important;}</style><style id='custom-css-mods'>#masthead #site-logo img { transform-origin: left; }body { font-family: Roboto Slab; }#masthead h1.site-title a { color: #ffffff; }#masthead h2.site-description { color: #ffffff; }.woocommerce ul.products li.product { width: 30.75%; }#primary-mono .entry-content{ font-size:16px;}</style><style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>	<style>
+	#masthead {
+			background-image: url(https://wolles-elektronikkiste.de/wp-content/uploads/2019/02/cropped-header_h800_dunkel_2-1.jpg);
+			background-size: cover;
+			background-position-x: center;
+			background-repeat: no-repeat;
+		}
+	</style>	
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url("https://wolles-elektronikkiste.de/wp-content/uploads/2019/02/WNFF2735-kleinschmalblass3.jpg"); background-position: left top; background-size: auto; background-repeat: repeat; background-attachment: scroll; }
+</style>
+	<link rel="icon" href="https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/cropped-Logo-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/cropped-Logo-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/cropped-Logo-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/cropped-Logo-1-270x270.png" />
+		<style type="text/css" id="wp-custom-css">
+			.scroll-paragraph{
+	height: 550px;
+	margin: 5px;
+	overflow-x:hidden;
+}
+.scroll-paragraph-long{
+	height: 750px;
+	margin: 5px;
+	overflow-x: hidden;
+}
+.wp-block-image {
+  margin: 0;
+}
+.wp-block-image figcaption {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 1.5;
+	color: black;
+}		</style>
+		</head>
+<body data-cmplz=1 class="post-template-default single single-post postid-12177 single-format-standard custom-background wp-custom-logo">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    <div id="jumbosearch">
+    <span class="fa fa-remove closeicon"></span>
+    <div class="form">
+        <form role="search" method="get" class="search-form" action="https://wolles-elektronikkiste.de/en">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>    </div>
+</div>    <div class="top-bar">
+<div class="container">
+    <div id="search-icon">
+        <a id="searchicon">
+            <span class="fa fa-search"></span>
+        </a>
+    </div>
+        <div id="social-icons">
+            	<a class="hvr-ripple-out" href="https://www.facebook.com/wolfgang.ewald.7503"><i class="fa fa-fw fa-facebook"></i></a>
+		<a class="hvr-ripple-out" href="https://www.instagram.com/wolfgang.ewald.7503/?hl=de"><i class="fa fa-fw fa-instagram"></i></a>
+	        </div>
+</div>
+</div>
+    <header id="masthead" class="site-header" role="banner">
+    <div class="container">
+        <div class="site-branding">
+                            <div class="amora-logo">
+                <div id="site-logo">
+                    <a href="https://wolles-elektronikkiste.de/en" class="custom-logo-link" rel="home"><img width="512" height="512" src="https://wolles-elektronikkiste.de/wp-content/uploads/2019/03/Logo-e1553511130707.png" class="custom-logo" alt="Logo für Wolles Elektronikkiste" decoding="async" fetchpriority="high" /></a>                </div>
+                </div>
+                        <div id="text-title-desc">
+                <h1 class="site-title title-font"><a href="https://wolles-elektronikkiste.de/en" rel="home">Wolles Elektronikkiste</a></h1>
+                <h2 class="site-description">Die wunderbare Welt der Elektronik</h2>
+            </div>
+        </div>
+    </div>
+    <div id="mobile-menu">
+    <div class="menu"><ul>
+<li ><a href="https://wolles-elektronikkiste.de/en">Home</a></li><li class="page_item page-item-8797"><a href="https://wolles-elektronikkiste.de/en/a-few-comments-on-the-english-version">A few comments on the English version</a></li>
+<li class="page_item page-item-8737"><a href="https://wolles-elektronikkiste.de/en/about-me-and-the-blog">About me and the blog</a></li>
+<li class="page_item page-item-18176"><a href="https://wolles-elektronikkiste.de/en/cookie-policy">Cookie Policy</a></li>
+<li class="page_item page-item-8765"><a href="https://wolles-elektronikkiste.de/en/legal-notice">Legal notice</a></li>
+<li class="page_item page-item-8756"><a href="https://wolles-elektronikkiste.de/en/list-of-blog-posts">List of posts</a></li>
+<li class="page_item page-item-14004"><a href="https://wolles-elektronikkiste.de/en/news-ticker">News Ticker</a></li>
+</ul></div>
+</div>
+<nav id="site-navigation" class="main-navigation title-font" role="navigation">
+    <div class="container">
+        <div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-8751" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://wolles-elektronikkiste.de/en/about-me-and-the-blog"></i>About me and the blog</a></li>
+<li id="menu-item-8761" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="https://wolles-elektronikkiste.de/en/"></i>Home</a></li>
+<li id="menu-item-8801" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://wolles-elektronikkiste.de/en/a-few-comments-on-the-english-version"></i>About the English version</a></li>
+<li id="menu-item-9392" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://wolles-elektronikkiste.de/en/list-of-blog-posts"></i>List of posts</a></li>
+<li id="menu-item-14011" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://wolles-elektronikkiste.de/en?page_id=14004"></i>News</a></li>
+<li id="menu-item-wpml-ls-11-en" class="menu-item wpml-ls-slot-11 wpml-ls-item wpml-ls-item-en wpml-ls-current-language wpml-ls-menu-item wpml-ls-last-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item menu-item-has-children"><a href="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code"> <i class="fa English"></i><img
+            class="wpml-ls-flag"
+            src="https://wolles-elektronikkiste.de/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png"
+            alt=""
+            width=18
+            height=12
+    /><span class="wpml-ls-native" lang="en">English</span></a>
+<ul class="sub-menu">
+	<li id="menu-item-wpml-ls-11-de" class="menu-item wpml-ls-slot-11 wpml-ls-item wpml-ls-item-de wpml-ls-menu-item wpml-ls-first-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item"><a href="https://wolles-elektronikkiste.de/esp32-mit-arduino-code-programmieren"> <i class="fa Deutsch"></i><img
+            class="wpml-ls-flag"
+            src="https://wolles-elektronikkiste.de/wp-content/plugins/sitepress-multilingual-cms/res/flags/de.png"
+            alt=""
+            width=18
+            height=12
+    /><span class="wpml-ls-native" lang="de">Deutsch</span></a></li>
+</ul>
+</li>
+</ul></div>    </div>
+</nav><!-- #site-navigation --></header><!-- #masthead -->	
+	<div class="mega-container">
+			
+		<div id="content" class="site-content container">
+	<div id="primary-mono" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-12177" class="post-12177 post type-post status-publish format-standard has-post-thumbnail hentry category-boards-and-microcontrollers tag-adc-en tag-arduino-en-2 tag-dac-en tag-deep-sleep-en tag-esp32-en tag-esp32-wroom-32-en-2 tag-frequency tag-i2c-en tag-light-sleep-en tag-pinout-en tag-pwm-en tag-resolution-en-2 tag-sleep-en tag-spi-en tag-touch-en tag-uart-en">
+	<header class="entry-header">
+		<h1 class="entry-title">Programming the ESP32 with Arduino Code</h1>		
+		
+		<div class="entry-meta">
+			<span class="posted-on">Posted on <a href="https://wolles-elektronikkiste.de/en/programming-the-esp32-with-arduino-code" rel="bookmark"><time class="entry-date published" datetime="2021-07-23T11:03:30+00:00">July 23, 2021</time><time class="updated" datetime="2023-02-06T16:52:01+00:00">February 6, 2023</time></a></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://wolles-elektronikkiste.de/en/author/w0ellelle_ewood">Wolfgang Ewald</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+			<div id="featured-image">
+			<img width="1200" height="1200" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png" class="attachment-full size-full wp-post-image" alt="" decoding="async" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32.png 1200w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-300x300.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-1024x1024.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-150x150.png 150w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-768x768.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-600x600.png 600w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Beitragsbild_ESP32-542x542.png 542w" sizes="(max-width: 1200px) 100vw, 1200px" />		</div>
+				
+			
+	<div class="entry-content">
+		
+<h2 class="wp-block-heading">About this post</h2>
+
+<p>After I reported in <a href="https://wolles-elektronikkiste.de/en/how-to-use-the-i2c-interfaces-of-the-esp32" target="_blank" rel="noopener">my penultimate post</a> about the I2C interfaces of the ESP32, I would like to give a complete overview of this powerful microcontroller.</p>
+
+<p>Everything I discuss here has basically been described more than once by someone else. So, why another article on this topic? It is an attempt to summarize the basic functions, peculiarities and stumbling blocks in a single post. In particular, I am addressing Arduino users who want to get into the ESP32. But maybe also the ESP32-experienced will find one or the other interesting information here.</p>
+
+<p>In my explanations and examples, I mainly refer to the widely used ESP32-WROOM-32, or the boards based on it. However, most of it can be applied to other ESP32 boards, such as the ESP32-PICO.</p>
+
+<p>The article has become quite long &#8211; here you can jump to the sections:</p>
+<ul>
+<li><a href="#ESP32_Boards">ESP32 Boards</a></li>
+<li><a href="#properties">Features of the ESP32-WROOM-32</a></li>
+<li><a href="#Arduino_IDE">Integration of the ESP32 into the Arduino IDE</a></li>
+<li><a href="#pinout">Pinout of the ESP32 Development Board</a></li>
+<li><a href="#digital_pins">Digital inputs/outputs</a></li>
+<li><a href="#analog_pins">Analog inputs/outputs</a></li>
+<li><a href="#PWM">Pulse Width Modulation (PWM)</a></li>
+<li><a href="#I2C">I2C</a></li>
+<li><a href="#SPI">SPI</a></li>
+<li><a href="#UART">Serial Interfaces (UART)</a></li>
+<li><a href="#touch">Touch Pins</a></li>
+<li><a href="#hall">Hall Sensor</a></li>
+<li><a href="#interrupts">Interrupts</a></li>
+<li><a href="#strom">Saving power / Sleep modes</a></li>
+<li><a href="#wifi">WiFi</a></li>
+<li><a href="#bluetooth">Bluetooth</a></li>
+<li><a href="#exotisch">Exotic pin functions</a><a id="ESP32_Boards"></a></li>
+</ul>
+
+<h2 class="wp-block-heading">ESP32 Boards</h2>
+
+<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow"><div class="wp-block-group__inner-container">
+<figure class="wp-block-gallery has-nested-images columns-4 wp-block-gallery-1 is-layout-flex wp-block-gallery-is-layout-flex">
+<figure class="wp-block-image size-full"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32.jpg" data-slb-active="1" data-slb-asset="549936114" data-slb-internal="0" data-slb-group="12177"><img decoding="async" width="2274" height="1167" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32.jpg" alt="" class="wp-image-12031" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32.jpg 2274w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-300x154.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-1024x526.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-768x394.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-1536x788.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-2048x1051.jpg 2048w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32-1320x677.jpg 1320w" sizes="(max-width: 2274px) 100vw, 2274px" /></a><figcaption class="wp-element-caption">Dev Module </figcaption></figure>
+
+
+<figure class="wp-block-image size-full"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style.jpg" data-slb-active="1" data-slb-asset="97163684" data-slb-internal="0" data-slb-group="12177"><img decoding="async" width="2000" height="1418" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style.jpg" alt="" class="wp-image-12033" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style.jpg 2000w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style-300x213.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style-1024x726.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style-768x545.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style-1536x1089.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_Ard_Style-1320x936.jpg 1320w" sizes="(max-width: 2000px) 100vw, 2000px" /></a><figcaption class="wp-element-caption">D1 R32</figcaption></figure>
+
+
+<figure class="wp-block-image size-full"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small.jpg" data-slb-active="1" data-slb-asset="406444268" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" width="1586" height="1216" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small.jpg" alt="" class="wp-image-12035" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small.jpg 1586w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small-300x230.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small-1024x785.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small-768x589.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small-1536x1178.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_small-1320x1012.jpg 1320w" sizes="(max-width: 1586px) 100vw, 1586px" /></a><figcaption class="wp-element-caption">Mini Board</figcaption></figure>
+
+
+<figure class="wp-block-image size-full"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico.jpg" data-slb-active="1" data-slb-asset="1039277996" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" width="2166" height="960" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico.jpg" alt="" class="wp-image-12037" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico.jpg 2166w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-300x133.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-1024x454.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-768x340.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-1536x681.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-2048x908.jpg 2048w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_pico-1320x585.jpg 1320w" sizes="(max-width: 2166px) 100vw, 2166px" /></a><figcaption class="wp-element-caption">Pico Kit</figcaption></figure></figure>
+
+
+
+<p>There are various ESP32 boards. Most are based on the ESP32-WROOM-32.&nbsp; Very popular are the development boards like the model shown above left. However, it has a width that is not ideal for breadboards because you only have space left on one side for jumper cables (see below). If you place two breadboards next to each other, the modules will not be wide enough to bridge the +/- bars. This may be a luxury problem, but it&#8217;s annoying. As a solution, I recommend multi-breadboards that have only one +/- bar between each board.</p>
+</div></div>
+<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-1024x442.jpg" data-slb-active="1" data-slb-asset="459095117" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-1024x442.jpg" alt="Not all ESP32 modules fit on all breadboards" class="wp-image-11988" width="768" height="332" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-1024x442.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-300x130.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-768x332.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-1536x663.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-2048x884.jpg 2048w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_on_breadboard-1320x570.jpg 1320w" sizes="(max-width: 768px) 100vw, 768px" /></a><figcaption class="wp-element-caption">Not all ESP32 modules harmonize in size with all breadboards</figcaption></figure></div>
+<p>Alternatively, you can also use the &#8220;Arduino UNO-like&#8221; D1 R32 board. Or you can take an ESP32 Pico because it is a bit smaller.<a id="properties"></a></p>
+
+<h2 class="wp-block-heading">Features of the ESP32-WROOM-32</h2>
+
+<p>The performance of the ESP32 boards makes AVR-based Arduinos like the UNO look old. The four to twelve times higher clock rate and a comparatively huge flash memory are another dimension. A clear advantage for the Arduino (AVR) boards, however, is that the underlying microcontrollers can be easily operated <a href="https://wolles-elektronikkiste.de/en/using-the-atmega328p-standalone" target="_blank" rel="noopener">standalone</a>. This allows space and energy saving projects to be realized. Wiring a bare ESP32, on the other hand, is not necessarily what most people like.</p>
+<p>Here is an overview of the most important data of the ESP32-WROOM-32:</p>
+<ul>
+<li><strong>Operating voltage</strong>: 3.3 volts</li>
+<li><strong>Power consumption</strong>: 1μA (hibernation) to max ~240 mA
+<ul>
+<li>the power consumption depends on the mode and the activated components</li>
+<li>in normal operation without WiFi and Bluetooth: approx. 50-70 mA</li>
+</ul>
+</li>
+<li><strong>Clock rate</strong> up to 240 MHz</li>
+<li>520 kByte internal <strong>SRAM</strong> (for data and commands)</li>
+<li>External <strong>flash memory</strong> up to 16 MByte
+<ul>
+<li>most modules have 4 MByte memory, of which about 1 MByte &#8220;for free use&#8221;</li>
+</ul>
+</li>
+<li>34 <strong>inputs/outputs</strong>:
+<ul>
+<li>usable: 22 GPIOs, 4 GPIs (input only)</li>
+<li>some have certain limitations</li>
+</ul>
+</li>
+<li>2 <strong>I2C</strong> interfaces</li>
+<li>2 usable <strong>SPI</strong> interfaces</li>
+<li>3 <strong>UART</strong> interfaces</li>
+<li><strong>Real time clock</strong></li>
+<li>10 <strong>touch sensors</strong></li>
+<li>Integrated <strong>Hall sensor</strong></li>
+<li>16 <strong>PWM</strong> channels</li>
+<li>2 &#8220;real&#8221; <strong>analog outputs</strong></li>
+<li>Up to 18 <strong> analog inputs</strong></li>
+<li><strong>WiFi:</strong> 802.11 b/g/n 2.4 GHz</li>
+<li><strong>Bluetooth</strong>: 4.2 / BLE (Bluetooth Low Energy)<a id="Arduino_IDE"></a></li>
+</ul>
+
+<h2 class="wp-block-heading">Integration of the ESP32 into the Arduino IDE</h2>
+
+<p>How to make the Arduino IDE ESP32-capable has been described endlessly. Therefore, I will be brief.</p>
+<ol>
+<li>In the Arduino IDE, go to File &#8211; &gt; Preferences.</li>
+<li>There you click on the small icon behind &#8220;Additional Boards Manager URLs&#8221;.</li>
+<li>Enter &#8220;https://dl.espressif.com/dl/package_esp32_index.json&#8221; as a separate line (without quotation marks).</li>
+<li>Go to Tools &#8211; &gt; Board &#8211; &gt; Boards Manager.</li>
+<li>Search for &#8220;esp32&#8221; and install &#8220;esp32 by Espressif Systems&#8221;.</li>
+<li>You may need to restart the Arduino IDE.</li>
+</ol>
+<p>After installation you will find several dozen ESP32 boards to choose from. You have to see which one fits. The &#8220;ESP32 Dev Module&#8221; is widely used. <a id="pinout"></a></p>
+
+<h2 class="wp-block-heading">Pinout of the ESP32 Development Board</h2>
+
+<p>There are different versions of ESP32-WROOM-32 based boards. This means that the pins on your board may be arranged differently, and some pins may also be missing. But what always matches is the multiple function of the pins. This means, for example, that GPIO4 is always HSPI_HD, ADC2_CH0, TOUCH_0 and RTC_IO 10.</p>
+
+<figure class="wp-block-image size-large"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-1024x497.jpg" data-slb-active="1" data-slb-asset="2105569308" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" width="1024" height="497" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-1024x497.jpg" alt="Pins of the ESP32 Development Board" class="wp-image-11901" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-1024x497.jpg 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-300x146.jpg 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-768x373.jpg 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-1536x746.jpg 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-2048x994.jpg 2048w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ESP32_dev_board_pinout-1320x641.jpg 1320w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption class="wp-element-caption">Pins of the ESP32 Development Board</figcaption></figure>
+<h3 class="wp-block-heading">&#8220;Forbidden&#8221; / Restricted Pins</h3>
+
+<p>Some pins have certain restrictions, others should be left unconnected. The latter group includes the pins <strong>GPIO6 to GPIO11</strong>. They are used internally for SPI communication with the flash memory. That is why I have marked them in grey. Just ignore them.</p>
+<p>While the ESP32 boots, some of its pins send PWM signals or go into HIGH state for short time. Depending on what you attach to the pins, this can interfere, but it does not have to. These are the pins <strong>GPIO0, GPIO1, GPIO3, GPIO5, GPIO14 and GPIO15</strong>.</p>
+<p><strong>GPIO0, GPIO2, GPIO4, GPIO5, GPIO12 and GPIO15 </strong>are so-called &#8220;strapping pins&#8221; that bring the ESP32 into bootloader or flash mode while booting. If you connect something to it during boot which pull the pins into the HIGH or LOW state, this can lead to unexpected behavior. You may know this from the GPIO0 pin of the <a href="https://wolles-elektronikkiste.de/en/esp8266-esp-01-module" target="_blank" rel="noopener">ESP8266 ESP-01</a>.</p>
+<p>The <strong>ADC2_CHx</strong> pins cannot be used as analog inputs when WiFi is active.<a id="digital_pins"></a></p>
+
+<h2 class="wp-block-heading">Digital inputs/outputs of the ESP32</h2>
+
+<p>Using the GPIOs as digital inputs and outputs works essentially the same as with the Arduino with the functions <code>pinMode()</code> , <code>digitalWrite()</code> and <code>digitalRead()</code>. If you normally work with Arduino (AVR) boards, you have to get used to the lower voltage of 3.3 volts. The maximum current should not exceed 12 mA.</p>
+<p>There is an important difference to the Arduino in the operation of the GPIOs as an input. While the Arduino has a pull-down resistor by default when using <code>pinMode(pin, INPUT)</code>, it must be enabled with <code>INPUT_PULLDOWN</code> when using the ESP32. If you just choose <code>INPUT</code>, then the pin level is undefined.</p>
+<p>The pins GPIO34-39 are pure inputs, which is why the name GPI is more appropriate. In addition, there is no internal pull-up or pull-down resistor available on these pins.<a id="analog_pins"></a></p>
+
+<h2 class="wp-block-heading">Analog inputs/outputs of the ESP32</h2>
+
+<h3 class="wp-block-heading">Analog inputs</h3>
+
+<p>The ESP32 has two A/D converters with a resolution of 12 bits. The ADC1 and ADC2 inputs each share one A/D converter. With <code>analogRead(pin)</code> you read the measured values like with the Arduino. The voltage U is (theoretically):</p>
+
+<div class="wp-block-katex-display-block katex-eq" data-katex-display="true"><pre>U\;\text{[V]} = \frac{3.3 \cdot \text{analogRead()}}{4095}</pre></div>
+
+<p>As excellent as the ESP32&#8217;s performance is otherwise, the A/D converters definitely are not:</p>
+<ol>
+<li>The scatter of the measured values is very high.</li>
+<li>Even worse, the results are not linear.</li>
+</ol>
+<p>The scatter is something you can get under control. Espressif recommends (<a href="https://docs.espressif.com/projects/esp-idf/en/v4.2-beta1/esp32/api-reference/peripherals/adc.html#minimizing-noise" target="_blank" rel="noopener">here</a>) connecting a 0.1 µF capacitor to the input and averaging the readings. Without a capacitor, I had to average 500 &#8211; 1000 readings to get the variation below 0.01 volts.</p>
+<p>The non-linearity is a bigger problem. I have checked this out and my findings are consistent with what I have found in other articles:</p>
+<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability-1024x626.png" data-slb-active="1" data-slb-asset="505669225" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability-1024x626.png" alt="ESP32 A/D Converter Readings vs. Actual Voltage" class="wp-image-11916" width="768" height="470" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability-1024x626.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability-300x183.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability-768x469.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/ADC_ESP32_reliability.png 1265w" sizes="(max-width: 768px) 100vw, 768px" /></a><figcaption class="wp-element-caption">ESP32 A/D Converter Readings vs. Actual Voltage</figcaption></figure></div>
+<p>Some people recommend using &#8220;look-up&#8221; tables to compensate for the error (e.g. <a href="https://github.com/e-tinkers/esp32-adc-calibrate" target="_blank" rel="noopener">here</a> on GitHub), others recommend regression polynomials (e.g. <a href="https://hackaday.io/project/27511-microfluidics-control-system/log/69406-adc-dac-calibration" target="_blank" rel="noopener">here</a>). If you need accurate readings, I recommend using a reasonable external A/D converter like the <a href="https://wolles-elektronikkiste.de/en/ads1115-a-d-converter-with-amplifier" target="_blank" rel="noopener">ADS1115</a>.</p>
+
+<h3 class="wp-block-heading">Analog outputs</h3>
+
+<h4 class="wp-block-heading">No analogWrite?</h4>
+
+<p>There is no <code>analogWrite()</code>. This fuction is not implemented! But that&#8217;s no problem. If you use an (AVR) Arduino the <code>analogWrite()</code> function only provides a PWM (pulse width modulation) signal. And this can be easily generated using the ESP32 PWM functions. I come back to this in the PWM section.</p>
+
+<h4 class="wp-block-heading">The dacWrite function</h4>
+
+<p>As an alternative to <code>analogWrite()</code>, you can use <code>dacWrite()</code> on the ESP32. It provides a true analog signal between 0 and 3.3 volts, which can be output at the two DAC pins. To call the function:</p>
+<p><code>dacWrite(pin, value)</code> with pin = 25 or 26 and value = 0, 1, 2 &#8230;. 255.</p>
+<p>Theoretically, the voltage U is:</p>
+
+<div class="wp-block-katex-display-block katex-eq" data-katex-display="true"><pre>U\;\text{[V]}=\frac{3.3}{255}\cdot value</pre></div>
+
+<p>Practically, it looks like this:</p>
+<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability-1024x608.png" data-slb-active="1" data-slb-asset="2062241670" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability-1024x608.png" alt="Theoretical and actual voltage at the DAC pins of the ESP32" class="wp-image-11922" width="768" height="456" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability-1024x608.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability-300x178.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability-768x456.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/DAC_ESP32__reliability.png 1313w" sizes="(max-width: 768px) 100vw, 768px" /></a><figcaption class="wp-element-caption">Theoretical and actual voltage at the DAC pins</figcaption></figure></div>
+<p>The minimum value in my measurements was 0.086 volts, the maximum value was 3.18 volts. After all, the slope is largely linear, so you can apply a calibration line.<a id="PWM"></a></p>
+
+<h2 class="wp-block-heading">Pulse Width Modulation (PWM)</h2>
+
+<p>A detailed introduction to pulse width modulation (PWM) would go beyond the scope of this article. In a nutshell: PWM is used, among other things, to control servo motors or to dim LEDs. A PWM signal is a square wave signal with a defined frequency (= 1/period) and a defined duty cycle. Here is an example of a signal with 25% duty cycle:</p>
+
+<figure class="wp-block-image size-large"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-1024x416.png" data-slb-active="1" data-slb-asset="1749082710" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" width="1024" height="416" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-1024x416.png" alt="" class="wp-image-11930" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-1024x416.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-300x122.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-768x312.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25-1320x536.png 1320w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/06/PWM_scheme_dc25.png 1491w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption class="wp-element-caption">PWM signal with 25% duty cycle</figcaption></figure>
+<p>The ESP32 has 16 PWM channels that can be assigned to the GPIO pins. However, the inputs GPI32 &#8211; GPI39 cannot be used for PWM. The basic setting of the PWM signal is applied to the channel with <code>ledcSetup(channel, freq, res)</code>. &#8220;channel&#8221; is the number of the channel, &#8220;freq&#8221; is the frequency and &#8220;res&#8221; is the resolution in bits.</p>
+<p>With <code>ledcAttachPin(pin, channel)</code>, you assign the pin to the PWM channel.</p>
+<p>The duty cycle is set with <code>ledcWrite(pin, dutyCycle)</code>. The Duty Cyle in percent is dutyCycle/2<sup>res</sup> x 100.</p>
+<p>Here is a small example sketch that periodically dims and lights up an LED attached to GPIO16.</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_pwm_led_dim.ino" data-enlighter-title="ESP32_pwm_led_dim.ino">const int pwmPin = 16;  // = GPIO16
+const int freq = 1000;
+const int pwmChannel = 0;
+const int res = 8; // 2^8 = 256
+ 
+void setup(){
+  ledcSetup(pwmChannel, freq, res);
+  ledcAttachPin(pwmPin, pwmChannel);
+}
+ 
+void loop(){
+  for(int dutyCycle = 0; dutyCycle &lt;= 256; dutyCycle++){   
+    ledcWrite(pwmChannel, dutyCycle);
+    delay(3);
+  }
+  for(int dutyCycle = 256; dutyCycle &gt;= 0; dutyCycle--){
+    ledcWrite(pwmChannel, dutyCycle);   
+    delay(3);
+  }
+}</pre>
+<p>&nbsp;</p>
+
+<p>Now I briefly come back to the <code>analogWrite()</code> function. When using an Arduino, <code>analogWrite()</code> generates a PWM signal of 490 Hz and a resolution of 8 bits on most pins (see <a href="https://www.arduino.cc/reference/en/language/functions/analog-io/analogwrite/" target="_blank" rel="noopener">here</a> on the Arduino pages). With <code>ledcSetup(channel, 490, 8)</code> you can easily do the same.</p>
+
+<h3 class="wp-block-heading">Maximum PWM resolution and frequency</h3>
+
+<p>You can select values between 1 and 15 bits as resolution. The resolution and the internal timer frequency (80 MHz) determine the maximum frequency of the PWM signal:</p>
+
+<div class="wp-block-katex-display-block katex-eq" data-katex-display="true"><pre>f_{\text{max}}=\frac{80000000}{2^\text{(res in bit)}} \;\;\;\;\;\;\text{z.B.:}\;\; \text{res} = 10\;\text{Bit}\;\;\; =&gt;\;\;\;f_{\text{max}}=\frac{80000000}{2^{10}}= 78125\; \text{[Hz]}</pre></div>
+
+<p>As an extreme example, you choose a resolution of one bit. This sets the duty cycle to 50% and the maximum frequency is 40 MHz. In this range, my oscilloscope is at its limit and therefore the signal is not very sharp. </p>
+
+<figure class="wp-block-image size-large is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-1024x324.png" data-slb-active="1" data-slb-asset="529698353" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-1024x324.png" alt="PWM with the ESP32 - left: 78125 Hz, right: 40 MHz" class="wp-image-11937" width="840" height="265" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-1024x324.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-300x95.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-768x243.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-1536x486.png 1536w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz-1320x417.png 1320w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/pwm_40mhz_78_125_khz.png 1629w" sizes="(max-width: 840px) 100vw, 840px" /></a><figcaption class="wp-element-caption">PWM with the ESP32 &#8211; left: 78125 Hz, right: 40 MHz, Duty Cyle: 50%</figcaption></figure>
+<p>A friendly reader (thanks to Stefan Groß), has measured the signal with his more professional equipment (active probe, 1 GHz, 10:1): <a id="I2C"></a></p>
+<div class="wp-block-image">
+<figure class="aligncenter size-full is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2022/01/RT-ZS10L_kurzer-GND-Anschluss.png" data-slb-active="1" data-slb-asset="85536440" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2022/01/RT-ZS10L_kurzer-GND-Anschluss.png" alt="40 MHz PWM - measured with a better oscilloscope" class="wp-image-13423" width="480" height="390" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2022/01/RT-ZS10L_kurzer-GND-Anschluss.png 640w, https://wolles-elektronikkiste.de/wp-content/uploads/2022/01/RT-ZS10L_kurzer-GND-Anschluss-300x244.png 300w" sizes="(max-width: 480px) 100vw, 480px" /></a><figcaption class="wp-element-caption">40 MHz PWM &#8211; measured with a better oscilloscope</figcaption></figure></div>
+<h2 class="wp-block-heading">Using the I2C interfaces of the ESP32</h2>
+
+<p>In contrast to the Arduino (UNO), the ESP32 has two I2C interfaces. The standard interface is assigned to GPIO21 and GPIO22. If you use the default, the operation is the same as with the Arduino. This means that you include the <code>Wire.h</code> library and use its functions as usual.</p>
+<p>But you have to keep in mind that the ESP32 voltage is 3.3 volts. If you connect a 5 volt device via I2C, you should apply a level shifter or voltage divider. Of course, this also applies to SPI and UART. The pins are not tolerant to 5 volts.</p>
+<p>Another difference is that you can assign the I2C interface to other GPIOs. How to do this, how to use the second I2C interface and how to pass the corresponding TwoWire objects to other objects, I have described <a href="https://wolles-elektronikkiste.de/en/how-to-use-the-i2c-interfaces-of-the-esp32" target="_blank" rel="noopener">here</a> in great detail. That is why I will not go into it in more detail.<a id="SPI"></a></p>
+
+<h2 class="wp-block-heading">Using the SPI interfaces of the ESP32</h2>
+
+<p>The ESP32 has a total of four SPI interfaces. However, only two of them are available to you, namely VSPI and HSPI. The other two SPI interfaces are used internally. VSPI is the default SPI interface. It is assigned to the GPIOs 18 (VSPI_CLK), 19 (VSPI_MISO), 23 (VSPI_MOSI) and 5 (VSPI_CS = Chip Select). If you use VSPI, it is very similar to the Arduino. You include <code>SPI.h</code> and use functions of this class as usual. Although the interface is called <strong>V</strong>SPI, the object is called SPI.</p>
+<p>If you want to use HSPI, then you first have to create the corresponding SPI object. Here is a simple little example. I attached two MPU9250 modules to HSPI and VSPI. I used Bolderflight&#8217;s MPU9250 library which can be found <a href="https://github.com/bolderflight/mpu9250-arduino" target="_blank" rel="noopener">here</a> on GitHub. But you don&#8217;t really have to deal with it. Just look at the first lines since they show the principle. </p>
+
+<div class="scroll-paragraph-long">
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_2_SPI_example_MPU9250.ino" data-enlighter-title="ESP32_2_SPI_example_MPU9250.ino">#include "MPU9250.h"
+#include "SPI.h"
+
+SPIClass SPI_2(HSPI); // create SPI_2 object
+MPU9250 IMU_1(SPI,5);  // pass standard SPI object (VSPI) and Chip Select
+MPU9250 IMU_2(SPI_2,15);  // pass SPI_2 object (HSPI) and Chip Select
+
+int status;
+
+void setup() {
+  Serial.begin(115200);
+ 
+  status = IMU_1.begin();
+  if (status &lt; 0) {
+    Serial.println("IMU 1 initialization unsuccessful");
+    while(1) {}
+  }
+  status = IMU_2.begin();
+  if (status &lt; 0) {
+    Serial.println("IMU 2 initialization unsuccessful");
+    while(1) {}
+  } 
+}
+
+void loop() {
+  IMU_1.readSensor();
+  Serial.println("IMU 1 Acceleration Data:");
+  Serial.print(IMU_1.getAccelX_mss(),6);
+  Serial.print("\t");
+  Serial.print(IMU_1.getAccelY_mss(),6);
+  Serial.print("\t");
+  Serial.println(IMU_1.getAccelZ_mss(),6);
+
+  IMU_2.readSensor();
+  Serial.println("IMU 2 Acceleration Data:");
+  Serial.print(IMU_2.getAccelX_mss(),6);
+  Serial.print("\t");
+  Serial.print(IMU_2.getAccelY_mss(),6);
+  Serial.print("\t");
+  Serial.println(IMU_2.getAccelZ_mss(),6);
+ 
+  delay(1000);
+}</pre>
+<p>&nbsp;</p>
+</div>
+
+<h3 class="wp-block-heading">Changing the default SPI pins</h3>
+
+<p>You can also assign VSPI and HSPI to other pins. A detailed sketch can be found <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/SPI/examples/SPI_Multiple_Buses/SPI_Multiple_Buses.ino" target="_blank" rel="noopener">here on GitHub</a>.<a id="UART"></a></p>
+
+<h2 class="wp-block-heading">Using the UART (Serial) interface with the ESP32</h2>
+
+<p>The ESP32 has three serial interfaces called U0UXD, U1UXD and U2UXD. The three interfaces are assigned to the following pins:</p>
+
+<figure class="wp-block-image size-large"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_UART_eng.png" data-slb-active="1" data-slb-asset="259559842" data-slb-internal="0" data-slb-group="12177"><img decoding="async" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/ESP32_UART_eng-1-1024x166.png" alt="Preset for the UART pins of the ESP32" class="wp-image-11942"/></a><figcaption class="wp-element-caption">Preset for the UART pins of the ESP32</figcaption></figure>
+<p>U0UXD is the default serial interface. It is used, among other things, for output to the serial monitor. It is initialized with <code>Serial.begin(baud rate)</code> as usual. If you want to use U1UXD and U2UXD, then you determine its properties with <code>Serialx.begin(baud rate, protocol, RXPin, TXPin)</code> (with x = 1 or 2). If you call the begin function only with the baud rate parameter, the default settings apply.</p>
+<p>Very theoretical, but with the example, it should become clear:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_UART.ino" data-enlighter-title="ESP32_UART.ino">#define RX1 16
+#define TX1 17
+#define RX2 12
+#define TX2 13
+
+void setup() {
+  Serial.begin(115200);
+  Serial1.begin(115200, SERIAL_8N1, RX1, TX1);
+  Serial2.begin(115200, SERIAL_8N1, RX2, TX2);
+  delay(100);
+  if(Serial1){
+    Serial.println("Serial1 successfully set up");
+  }
+  if(Serial2){
+    Serial.println("Serial2 successfully set up");
+  }
+}
+
+void loop(){}</pre>
+<p>&nbsp;</p>
+
+<p>SERIAL_8N1 means: 8 bits, no parity (N = no), 1 stop bit. That&#8217;s the standard. I found a collection of possible protocol parameters <a href="https://github.com/G6EJD/ESP32-Using-Hardware-Serial-Ports/blob/master/ESP32_Using_Serial2.ino" target="_blank" rel="noopener">here on GitHub</a>.</p>
+<p>You can also change the pins for the default interface using the same function: <code>Serial.begin(baud rate, protocoll, RXPin, TXPin)</code>.<a id="touch"></a></p>
+
+<h2 class="wp-block-heading">Touch Pins</h2>
+
+<p>The touch pins of the ESP32 are capacitance sensitive. The larger the capacitance, the smaller the measured value. Since the human body has also a capacitance, the pins react to touch. The small example sketch shows how it works:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_touch_test.ino" data-enlighter-title="ESP32_touch_test.ino">void setup() {
+  Serial.begin(9600);
+  while(!Serial){} 
+  Serial.println("ESP32 Touch Test");
+}
+
+void loop() {
+  Serial.println(touchRead(4));  // get value of Touch 0 pin = GPIO 4
+  //Serial.println(touchRead(T0)); // alternative 
+  delay(1000);
+}</pre>
+<p>&nbsp;</p>
+
+<p>I connected the touch pin to a jumper cable and left the loose end of the cable untouched at first, then touched it and then connected it to a 10 μF capacitor. This is what the output looked like:<a id="hall"></a></p>
+
+<figure class="wp-block-image size-large"><img decoding="async" loading="lazy" width="766" height="349" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Touch.png" alt="Output of ESP32_touch_test.ino" class="wp-image-11966" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Touch.png 766w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/Touch-300x137.png 300w" sizes="(max-width: 766px) 100vw, 766px" /><figcaption class="wp-element-caption">Output of ESP32_touch_test.ino</figcaption></figure>
+<h2 class="wp-block-heading">Hall Sensor</h2>
+
+<p>I had described Hall sensors in detail <a href="https://wolles-elektronikkiste.de/en/hall-sensors-and-reed-switches" target="_blank" rel="noopener">here</a>. Therefore, at this point only the short version: these sensors react to magnetic fields. The reading is easily done with <code>hallRead()</code>. But don&#8217;t expect too much of it. The sensitivity is low, so you need a powerful magnet and short distance of few centimeters to see an effect. Hall sensors generally have a short range, but the ESP32 Hall sensor is particularly insensitive. This is probably not least due to the metal cover.<a id="interrupts"></a></p>
+
+<h2 class="wp-block-heading">Interrupts</h2>
+
+<p>As for the interrupt programming of the ESP32, I could fill an entire article. Therefore I will only deal with external GPIO interrupts.</p>
+<p>You can set up interrupts on any GPIO pin, including the input pins GPI34 &#8211; GPI39. The handling is the similar to the Arduino boards, except for one special feature. If you use the attribute IRAM_ATTR in the Interrupt Service Routine (ISR), the code is not stored in flash memory, but in RAM. This makes the execution much faster. You have to place the ISR function before <code>setup()</code> (at least that&#8217;s how it is in the Arduino IDE). It may sound complicated, but it&#8217;s not.</p>
+<p>In my short example, a push of a button provides a HIGH signal to GPIO4. This triggers the interrupt. First, the highly complex 😉 circuit:</p>
+<div class="wp-block-image">
+<figure class="aligncenter size-large is-resized"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/interrupt_test.png" data-slb-active="1" data-slb-asset="742223324" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/interrupt_test.png" alt="ESP32 interrupt test on GPIO4" class="wp-image-11972" width="656" height="227" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/interrupt_test.png 874w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/interrupt_test-300x104.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/interrupt_test-768x266.png 768w" sizes="(max-width: 656px) 100vw, 656px" /></a><figcaption class="wp-element-caption">Interrupt test on GPIO4</figcaption></figure></div>
+<p>Here&#8217;s the sketch:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_ext_interrupt.ino" data-enlighter-title="ESP32_ext_interrupt.ino">int interruptPin = 4; // define GPIO4 as interrupt pin
+volatile bool event = false;
+
+void IRAM_ATTR eventISR(){
+  event = true;
+  detachInterrupt(interruptPin);
+}
+
+void setup() {
+  Serial.begin(115200);
+  while(!Serial){}
+  pinMode(interruptPin, INPUT_PULLDOWN);
+  attachInterrupt(interruptPin, eventISR, RISING);
+}
+
+void loop() {
+  if(event){
+    Serial.println("Interrupt!");
+    delay(1000); //debouncing
+    event = false;
+    attachInterrupt(interruptPin, eventISR, RISING);   
+  }
+}</pre>
+<p>&nbsp;</p>
+
+<p>You can also easily define multiple interrupts. Would be a nice exercise for you, wouldn&#8217;t it?<a id="strom"></a></p>
+
+<h2 class="wp-block-heading">Saving Power &#8211; Sleep Modes</h2>
+
+<p>The ESP32 is as powerful as it is power hungry. This can be a problem with battery-powered projects. However, there are ways to reduce power consumption to a fraction. First, you can turn off certain components. The biggest power consumers are WiFi and Bluetooth. If you use them, you should turn them off in between if possible. For this purpose, you can use <code>WiFi.mode(WIFI_OFF)</code> and <code>btStop()</code>. In addition, there are different sleep modes you can choose from.</p>
+<p>I want to limit the length of this article, so I will only briefly discuss light sleep and deep sleep. With <code>esp_sleep_enable_timer_wakeup()</code> you define a sleep phase, after which the ESP32 wakes up again. As parameter, you pass the time in microseconds. But only when you call <code>esp_deep_sleep_start()</code> or <code>esp_light_sleep_start()</code>, the sleep phase begins.</p>
+<p>After light sleep, the program continues where it stopped. After deep sleep, it restarts. You can try this out with the following sketch:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_deep_vs_light_sleep.ino" data-enlighter-title="ESP32_deep_vs_light_sleep.ino">const int unsigned long microSecToSec = 1000000;
+const int sleepTime = 5; 
+
+void setup(){
+  Serial.begin(115200);
+  while(!Serial){}
+
+  esp_sleep_enable_timer_wakeup(sleepTime * microSecToSec);
+  Serial.println();
+  Serial.println("ESP32 will go to sleep for 5 seconds....");
+  delay(2000);
+  Serial.println("...now");
+  esp_deep_sleep_start();
+  //esp_light_sleep_start(); 
+  Serial.println("This message will only be printed after light sleep");
+}
+
+void loop(){ 
+}</pre>
+<p>&nbsp;</p>
+
+<h3 class="wp-block-heading">Wake up via external signal</h3>
+
+<p>You can also wake up the ESP32 via external signals on one of the RTC_IO pins. You set that up with <code>esp_sleep_enable_ext0_wakeup(GPIO_NUM_x, HIGH/LOW)</code>. The function expects the pin number in the format &#8220;GPIO_NUM_x&#8221; as the first argument. If you pass an integer instead, there will be an error message. The second parameter determines whether the wake-up signal is a HIGH or a LOW.</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_RTC_wake_up.ino" data-enlighter-title="ESP32_RTC_wake_up.ino">void setup(){
+  Serial.begin(115200);
+  while(!Serial){};
+  pinMode(GPIO_NUM_4, INPUT_PULLDOWN); 
+  Serial.println();
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_4,1);
+  Serial.println("ESP32 will go to deep sleep...");
+  delay(1000);
+  Serial.println("...now");
+  esp_deep_sleep_start(); //
+  Serial.println("This message will only be printed after light sleep");
+}
+
+void loop(){ 
+}</pre>
+<p>&nbsp;</p>
+
+<h3 class="wp-block-heading">Waking up with Touch</h3>
+
+<p>You control waking up by touch with the <code>esp_sleep_enable_touchpad_wakeup()</code> function. Before that, however, you have to set up a touch interrupt. Here&#8217;s how:</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_touch_wake_up.ino" data-enlighter-title="ESP32_touch_wake_up.ino">#define THRESHOLD 40
+void callback(){}
+
+void setup(){
+  Serial.begin(115200);
+  delay(1000);
+  touchAttachInterrupt(T4, callback, THRESHOLD); //T4 = GPIO13
+  esp_sleep_enable_touchpad_wakeup();
+  Serial.println("Going to deep sleep...");
+  delay(1000);
+  Serial.println("...now");
+  esp_deep_sleep_start();
+}
+
+void loop(){
+}</pre>
+<p>&nbsp;</p>
+
+<p>So, all you have to do is touch the GPIO13 (easiest via a jumper cable) and the ESP32 will wake up. If you want, you can add further commands to <code>callback(){}</code>. Of course, the touch interrupt also works without an alarm function. <a id="wifi"></a></p>
+
+<h2 class="wp-block-heading">WiFi</h2>
+
+<p>The use of WiFi is a quite complex topic. Therefore, I have covered this in a separate article. You find it <a href="https://wolles-elektronikkiste.de/en/using-wifi-with-the-esp8266-and-esp32" target="_blank" rel="noopener">here</a>.<a id="bluetooth"></a></p>
+
+<h2 class="wp-block-heading">Bluetooth</h2>
+
+<p>The topic of Bluetooth is also very extensive. I will show a simple example of how to switch LEDs connected to the ESP32 via smartphone or computer. To do this, you first need a Bluetooth terminal program. For the PC I suggest <a href="https://www.microsoft.com/de-de/p/bluetooth-serial-terminal/9wzdncrdfst8?activetab=pivot:overviewtab" target="_blank" rel="noopener">Bluetooth Serial Terminal</a>, for Android smartphones I suggest <a href="https://play.google.com/store/apps/details?id=Qwerty.BluetoothTerminal&amp;hl=de" target="_blank" rel="noopener">Bluetooth Terminal</a>.</p>
+<p>On the ESP32 side, connect two LEDs on GPIO4 and GPIO13. Of course, you can also choose other pins and expand the example as you like.</p>
+<p>Upload the following sketch, then pair the ESP32 with your smartphone or PC. The ESP32 appears under the name you give with <code>espBT.begin("name")</code>. After pairing, you still have to connect the ESP32 in the computer program or in the smartphone app. In the app you click on the three dots, in the PC program it is obvious what to do.&nbsp;</p>
+<p>If, for example, you send &#8220;+4&#8221; to the ESP32, you switch on the LED at GPIO4. With &#8220;-4&#8221;, on the other hand, you switch it off.</p>
+
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-group="ESP32_BT_example.ino" data-enlighter-title="ESP32_BT_example.ino">#include "BluetoothSerial.h" 
+
+BluetoothSerial espBT; 
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(4, OUTPUT);
+  pinMode(13, OUTPUT);
+  espBT.begin("ESP32 Bluetooth Example");
+  Serial.println("Pair your BT device now");  
+}
+
+void loop(){
+  if(espBT.available()){
+    char command = espBT.read();
+    int state = LOW;
+    int pin = espBT.parseInt();
+    Serial.print("Received: "); 
+    Serial.print(command);
+    Serial.println(pin);
+
+    if((command == '+')||(command == '-')){
+      if(command == '+'){
+        state = HIGH;
+      }
+      else state = LOW;
+      digitalWrite(pin, state);
+    }
+    
+    espBT.print("Received: "); 
+    espBT.print(command);
+    espBT.println(pin);
+  }     
+}</pre>
+<p>&nbsp;</p>
+
+<p>And this is what the Bluetooth Serial Terminal looks like:</p>
+
+<figure class="wp-block-image size-large"><a href="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-1024x546.png" data-slb-active="1" data-slb-asset="485300868" data-slb-internal="0" data-slb-group="12177"><img decoding="async" loading="lazy" width="1024" height="546" src="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-1024x546.png" alt="Bluetooth Serial Terminal Program Window" class="wp-image-12051" srcset="https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-1024x546.png 1024w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-300x160.png 300w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-768x409.png 768w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal-1320x703.png 1320w, https://wolles-elektronikkiste.de/wp-content/uploads/2021/07/BT_Serial_Terminal.png 1503w" sizes="(max-width: 1024px) 100vw, 1024px" /></a><figcaption class="wp-element-caption">Bluetooth Serial Terminal Program Window</figcaption></figure>
+<p>A few more brief explanations:</p>
+<ul>
+<li><code>BluetoothSerial espBT</code> creates the Bluetooth object.</li>
+<li><code>espBT.read()</code> reads the first character, i.e. &#8220;+&#8221; or &#8220;–&#8221;.</li>
+<li><code>espBT.parseInt()</code> identifies the next sequence of digits in the incoming characters and reads them as an integer (very useful function).</li>
+</ul>
+
+<p>Everything else you should be able to understand. If not, then there is a more detailed tutorial <a href="https://circuitdigest.com/microcontroller-projects/using-classic-bluetooth-in-esp32-and-toogle-an-led" target="_blank" rel="noopener">here</a>, for example.&nbsp;<a id="exotisch"></a></p>
+
+<h2 class="wp-block-heading">&#8220;Exotic&#8221; pin functions</h2>
+
+<p>If you go back to the pinout diagram from the beginning, you will see that I have explained most of the pin functions. However, a few are still missing. Most people will probably never use them.</p>
+<ul>
+<li>SENS_VP / SENS_VN: Input for small DC signals, e.g. thermocouples. The pins are also used internally for the Hall sensor.</li>
+<li>VDET1 / VDT2: &#8220;<a href="https://esp32.com/viewtopic.php?t=187" target="_blank" rel="noopener">they belong to the RTC power domain, which means that the devices that fall under the RTC can control them. It means e.g. that they can be used as ADC pins and that the ULP coprocessor can read them.</a> &#8221; &#8211; no idea what that really means, but exactly this wording is quoted quite often. </li>
+<li><em>x</em>SPI_WP / <em>x</em>SPI_HD: required to control 4-bit SPI transactions; WP = Write Protection, HD = Hold.</li>
+<li>XTAL_P/ XTAL_N: external oscillator input for the ULP (Ultra Low Power) processor.</li>
+</ul>
+
+<h2 class="wp-block-heading">Acknowledgement</h2>
+
+<p>I have found the cloud in the post image at <a href="https://pixabay.com/de/users/clker-free-vector-images-3736/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=41256" target="_blank" rel="noopener">Clker free vector images</a> on <a href="https://pixabay.com/de/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=41256" target="_blank" rel="noopener">Pixabay</a>.</p>
+
+<p></p>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="cat-links">Posted in <a href="https://wolles-elektronikkiste.de/en/category/boards-and-microcontrollers" rel="category tag">Boards and Microcontrollers</a></span><span class="tags-links">Tagged <a href="https://wolles-elektronikkiste.de/en/tag/adc-en" rel="tag">ADC</a>, <a href="https://wolles-elektronikkiste.de/en/tag/arduino-en-2" rel="tag">Arduino</a>, <a href="https://wolles-elektronikkiste.de/en/tag/dac-en" rel="tag">DAC</a>, <a href="https://wolles-elektronikkiste.de/en/tag/deep-sleep-en" rel="tag">deep sleep</a>, <a href="https://wolles-elektronikkiste.de/en/tag/esp32-en" rel="tag">ESP32</a>, <a href="https://wolles-elektronikkiste.de/en/tag/esp32-wroom-32-en-2" rel="tag">ESP32-WROOM-32</a>, <a href="https://wolles-elektronikkiste.de/en/tag/frequency" rel="tag">frequency</a>, <a href="https://wolles-elektronikkiste.de/en/tag/i2c-en" rel="tag">I2C</a>, <a href="https://wolles-elektronikkiste.de/en/tag/light-sleep-en" rel="tag">light sleep</a>, <a href="https://wolles-elektronikkiste.de/en/tag/pinout-en" rel="tag">Pinout</a>, <a href="https://wolles-elektronikkiste.de/en/tag/pwm-en" rel="tag">PWM</a>, <a href="https://wolles-elektronikkiste.de/en/tag/resolution-en-2" rel="tag">resolution</a>, <a href="https://wolles-elektronikkiste.de/en/tag/sleep-en" rel="tag">sleep</a>, <a href="https://wolles-elektronikkiste.de/en/tag/spi-en" rel="tag">SPI</a>, <a href="https://wolles-elektronikkiste.de/en/tag/touch-en" rel="tag">Touch</a>, <a href="https://wolles-elektronikkiste.de/en/tag/uart-en" rel="tag">UART</a></span>	</footer><!-- .entry-footer -->
+	
+			<nav class="navigation post-navigation" role="navigation">
+		<h4 class="screen-reader-text">Post navigation</h4>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://wolles-elektronikkiste.de/en/tvoc-and-eco2-sensors" rel="prev"><span class="meta-nav">&larr;</span>&nbsp;TVOC and eCO2 Sensors</a></div><div class="nav-next"><a href="https://wolles-elektronikkiste.de/en/icm-20948-9-axis-sensor-part-i" rel="next">ICM-20948 9-Axis Sensor Part I&nbsp;<span class="meta-nav">&rarr;</span></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+</article><!-- #post-## -->
+
+			
+			
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			One thought on &ldquo;<span>Programming the ESP32 with Arduino Code</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+			
+	<li id="comment-7531" class="pingback even thread-even depth-1">
+		<div class="comment-body">
+			Pingback: <a href="https://www.odollars.com/login-esp-t4/" class="url" rel="ugc external nofollow">Login Esp T4 Page Info &amp; Instructions Online User Account Activation - Odollars</a> 		</div>
+
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/en/programming-the-esp32-with-arduino-code#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://wolles-elektronikkiste.de/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea autocomplete="new-password"  id="f12eff1d40"  name="f12eff1d40"   cols="45" rows="8" maxlength="65525" required></textarea><textarea id="comment" aria-label="hp-comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0 !important;clip:rect(1px, 1px, 1px, 1px) !important;position:absolute !important;white-space:nowrap !important;height:1px !important;width:1px !important;overflow:hidden !important;" tabindex="-1"></textarea><script data-noptimize>document.getElementById("comment").setAttribute( "id", "aa4387d20124756115c4ef5abfcb406e" );document.getElementById("f12eff1d40").setAttribute( "id", "comment" );</script></p><input name="wpml_language_code" type="hidden" value="en" /><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="comment-form-mailpoet">
+      <label for="mailpoet_subscribe_on_comment">
+        <input
+          type="checkbox"
+          id="mailpoet_subscribe_on_comment"
+          value="1"
+          name="mailpoet[subscribe_on_comment]"
+        />&nbsp;Ja, informiere mich über neue Beiträge! Inform me about new posts!  You will NOT be notified about new or follow-up comments!
+      </label>
+    </p><p class='comment-form-subscriptions'><label for='subscribe-reloaded'><select name='subscribe-reloaded' id='subscribe-reloaded'>
+								<option value='none' selected='selected'>Don&#039;t subscribe</option>
+								<option value='yes' >All</option>
+								<option value='replies' >Replies to my comments</option>
+							</select> E-Mail-Benachrichtigung bei weiteren Kommentaren / E-mail notification about new comments </BR> Options: Nicht abonnieren: Don't subscribe, Alle = All, Antworten auf meine Kommentare = Only replies to my comments </BR>Oder / Or: <a href="https://wolles-elektronikkiste.de/en/comment-subscriptions/?srp=12177&amp;srk=f4c5b49202dccf343ed27773685414c7&amp;sra=s&amp;srsrc=f">Abo ohne Kommentar / Subscription without comment</a>.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='12177' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+<div id="secondary" class="widget-area col-md-3 default" role="complementary">
+	      <aside id="mailpoet_form-5" class="widget widget_mailpoet_form">
+  
+      <h4 class="widget-title title-font hvr-skew-forward">Abo / Subscription?</h4>
+  
+  <div class="
+    mailpoet_form_popup_overlay
+      "></div>
+  <div
+    id="mailpoet_form_1"
+    class="
+      mailpoet_form
+      mailpoet_form_widget
+      mailpoet_form_position_
+      mailpoet_form_animation_
+    "
+      >
+
+    <style type="text/css">
+     #mailpoet_form_1 .mailpoet_form {  }
+#mailpoet_form_1 .mailpoet_paragraph { line-height: 20px; }
+#mailpoet_form_1 .mailpoet_segment_label, #mailpoet_form_1 .mailpoet_text_label, #mailpoet_form_1 .mailpoet_textarea_label, #mailpoet_form_1 .mailpoet_select_label, #mailpoet_form_1 .mailpoet_radio_label, #mailpoet_form_1 .mailpoet_checkbox_label, #mailpoet_form_1 .mailpoet_list_label, #mailpoet_form_1 .mailpoet_date_label { display: block; font-weight: bold; }
+#mailpoet_form_1 .mailpoet_text, #mailpoet_form_1 .mailpoet_textarea, #mailpoet_form_1 .mailpoet_select, #mailpoet_form_1 .mailpoet_date_month, #mailpoet_form_1 .mailpoet_date_day, #mailpoet_form_1 .mailpoet_date_year, #mailpoet_form_1 .mailpoet_date { display: block; }
+#mailpoet_form_1 .mailpoet_text, #mailpoet_form_1 .mailpoet_textarea { width: 200px; }
+#mailpoet_form_1 .mailpoet_checkbox {  }
+#mailpoet_form_1 .mailpoet_submit input {  }
+#mailpoet_form_1 .mailpoet_divider {  }
+#mailpoet_form_1 .mailpoet_message {  }
+#mailpoet_form_1 .mailpoet_validate_success { font-weight: 600; color: #468847; }
+#mailpoet_form_1 .mailpoet_validate_error { color: #b94a48; }
+#mailpoet_form_1 .mailpoet_form_loading { width: 30px; text-align: center; line-height: normal; }
+#mailpoet_form_1 .mailpoet_form_loading > span { width: 5px; height: 5px; background-color: #5b5b5b; }#mailpoet_form_1{border-radius: 0px;text-align: left;}#mailpoet_form_1 form.mailpoet_form {padding: 20px;}#mailpoet_form_1{width: 100%;}#mailpoet_form_1 .mailpoet_message {margin: 0; padding: 0 20px;}#mailpoet_form_1 .mailpoet_paragraph.last {margin-bottom: 0} @media (max-width: 500px) {#mailpoet_form_1 {background-image: none;}} @media (min-width: 500px) {#mailpoet_form_1 .last .mailpoet_paragraph:last-child {margin-bottom: 0}}  @media (max-width: 500px) {#mailpoet_form_1 .mailpoet_form_column:last-child .mailpoet_paragraph:last-child {margin-bottom: 0}} 
+    </style>
+
+    <form
+      target="_self"
+      method="post"
+      action="https://wolles-elektronikkiste.de/wp-admin/admin-post.php?action=mailpoet_subscription_form"
+      class="mailpoet_form mailpoet_form_form mailpoet_form_widget"
+      novalidate
+      data-delay=""
+      data-exit-intent-enabled=""
+      data-font-family=""
+      data-cookie-expiration-time=""
+    >
+      <input type="hidden" name="data[form_id]" value="1" />
+      <input type="hidden" name="token" value="bd6ec87a13" />
+      <input type="hidden" name="api_version" value="v1" />
+      <input type="hidden" name="endpoint" value="subscribers" />
+      <input type="hidden" name="mailpoet_method" value="subscribe" />
+
+      <label class="mailpoet_hp_email_label" style="display: none !important;">Please leave this field empty<input type="email" name="data[email]"/></label><div class="mailpoet_paragraph "><label for="form_first_name_1" class="mailpoet_text_label" data-automation-id="form_first_name_label" >Vorname</label><input type="text" autocomplete="given-name" class="mailpoet_text" id="form_first_name_1" name="data[form_field_NWFlZjA3MzVhZTdjX2ZpcnN0X25hbWU=]" title="Vorname" value="" style="padding:5px;margin: 0 auto 0 0;" data-automation-id="form_first_name" data-parsley-names='[&quot;Please specify a valid name.&quot;,&quot;Addresses in names are not permitted, please add your name instead.&quot;]'/></div>
+<div class="mailpoet_paragraph "><label for="form_email_1" class="mailpoet_text_label" data-automation-id="form_email_label" >E-Mail <span class="mailpoet_required">*</span></label><input type="email" autocomplete="email" class="mailpoet_text" id="form_email_1" name="data[form_field_ZjlhOTg3OWY1NmYxX2VtYWls]" title="E-Mail" value="" style="padding:5px;margin: 0 auto 0 0;" data-automation-id="form_email" data-parsley-required="true" data-parsley-minlength="6" data-parsley-maxlength="150" data-parsley-type-message="This value should be a valid email." data-parsley-errors-container=".mailpoet_error_email_" data-parsley-required-message="This field is required."/></div>
+<div class="mailpoet_paragraph " ><a href="http://wolles-elektronikkiste.de/privacy-policy">Zur Datenschutzerklärung.</a></div>
+<div class="mailpoet_paragraph "><input type="submit" class="mailpoet_submit" value="Abonniere / subscribe!" data-automation-id="subscribe-submit-button" style="padding:5px;margin: 0 auto 0 0;border-color:transparent;" /><span class="mailpoet_form_loading"><span class="mailpoet_bounce1"></span><span class="mailpoet_bounce2"></span><span class="mailpoet_bounce3"></span></span></div>
+
+      <div class="mailpoet_message">
+        <p class="mailpoet_validate_success"
+                style="display:none;"
+                >Prüfe deinen Posteingang oder Spam-Ordner, um dein Abonnement zu bestätigen.
+        </p>
+        <p class="mailpoet_validate_error"
+                style="display:none;"
+                >        </p>
+      </div>
+    </form>
+
+      </div>
+
+      </aside>
+  
+		<aside id="recent-posts-2" class="widget widget_recent_entries">
+		<h4 class="widget-title title-font hvr-skew-forward">Recent Posts</h4>
+		<ul>
+											<li>
+					<a href="https://wolles-elektronikkiste.de/en/minievb-boards-an-overview">MiniEVB Boards &#8211; an overview</a>
+									</li>
+											<li>
+					<a href="https://wolles-elektronikkiste.de/en/lgt8f328p-lqfp32-boards">LGT8F328P &#8211; LQFP32 Boards</a>
+									</li>
+											<li>
+					<a href="https://wolles-elektronikkiste.de/en/using-chatgpt-and-bing-for-arduino">Using ChatGPT and Bing for Arduino</a>
+									</li>
+											<li>
+					<a href="https://wolles-elektronikkiste.de/en/esp-now">ESP-NOW</a>
+									</li>
+											<li>
+					<a href="https://wolles-elektronikkiste.de/en/ds1302-and-ds1307-rtc-real-time-clock">DS1302 and DS1307 RTC Real-Time Clock</a>
+									</li>
+					</ul>
+
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h4 class="widget-title title-font hvr-skew-forward">Recent Comments</h4><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Antonio Carlos Jacques</span> on <a href="https://wolles-elektronikkiste.de/en/lgt8f328p-lqfp32-boards#comment-23231">LGT8F328P &#8211; LQFP32 Boards</a></li><li class="recentcomments"><span class="comment-author-link">Wolfgang Ewald</span> on <a href="https://wolles-elektronikkiste.de/en/mpu9250-9-axis-sensor-module-part-1#comment-23227">MPU9250 &#8211; 9-Axis Sensor Module &#8211; Part 1</a></li><li class="recentcomments"><span class="comment-author-link">yogesh</span> on <a href="https://wolles-elektronikkiste.de/en/mpu9250-9-axis-sensor-module-part-1#comment-23210">MPU9250 &#8211; 9-Axis Sensor Module &#8211; Part 1</a></li><li class="recentcomments"><span class="comment-author-link">Wolfgang Ewald</span> on <a href="https://wolles-elektronikkiste.de/en/lgt8f328p-lqfp32-boards#comment-23155">LGT8F328P &#8211; LQFP32 Boards</a></li><li class="recentcomments"><span class="comment-author-link">Antonio Carlos Jacques</span> on <a href="https://wolles-elektronikkiste.de/en/lgt8f328p-lqfp32-boards#comment-23152">LGT8F328P &#8211; LQFP32 Boards</a></li></ul></aside><aside id="archives-2" class="widget widget_archive"><h4 class="widget-title title-font hvr-skew-forward">Archives</h4>		<label class="screen-reader-text" for="archives-dropdown-2">Archives</label>
+		<select id="archives-dropdown-2" name="archive-dropdown">
+			
+			<option value="">Select Month</option>
+				<option value='https://wolles-elektronikkiste.de/en/2023/06'> June 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2023/05'> May 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2023/04'> April 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2023/03'> March 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2023/02'> February 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2023/01'> January 2023 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/12'> December 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/11'> November 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/10'> October 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/09'> September 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/08'> August 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/07'> July 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/06'> June 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/05'> May 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/04'> April 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/03'> March 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/02'> February 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2022/01'> January 2022 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/12'> December 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/11'> November 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/10'> October 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/09'> September 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/08'> August 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/07'> July 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/06'> June 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/05'> May 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/04'> April 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/03'> March 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/02'> February 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2021/01'> January 2021 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2020/12'> December 2020 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2020/11'> November 2020 </option>
+	<option value='https://wolles-elektronikkiste.de/en/2020/10'> October 2020 </option>
+
+		</select>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var dropdown = document.getElementById( "archives-dropdown-2" );
+	function onSelectChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value !== '' ) {
+			document.location.href = this.options[ this.selectedIndex ].value;
+		}
+	}
+	dropdown.onchange = onSelectChange;
+})();
+/* ]]> */
+</script>
+			</aside><aside id="categories-2" class="widget widget_categories"><h4 class="widget-title title-font hvr-skew-forward">Themen</h4>
+			<ul>
+					<li class="cat-item cat-item-543"><a href="https://wolles-elektronikkiste.de/en/category/boards-and-microcontrollers">Boards and Microcontrollers</a>
+</li>
+	<li class="cat-item cat-item-565"><a href="https://wolles-elektronikkiste.de/en/category/other-parts">Other parts</a>
+<ul class='children'>
+	<li class="cat-item cat-item-566"><a href="https://wolles-elektronikkiste.de/en/category/other-parts/port-expansion">Port expansion</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-567"><a href="https://wolles-elektronikkiste.de/en/category/other-stuff">Other stuff</a>
+</li>
+	<li class="cat-item cat-item-571"><a href="https://wolles-elektronikkiste.de/en/category/projects">Projects</a>
+</li>
+	<li class="cat-item cat-item-572"><a href="https://wolles-elektronikkiste.de/en/category/sensors">Sensors</a>
+<ul class='children'>
+	<li class="cat-item cat-item-919"><a href="https://wolles-elektronikkiste.de/en/category/sensors/acceleration">Acceleration</a>
+</li>
+	<li class="cat-item cat-item-574"><a href="https://wolles-elektronikkiste.de/en/category/sensors/current-voltage">Current, voltage</a>
+</li>
+	<li class="cat-item cat-item-573"><a href="https://wolles-elektronikkiste.de/en/category/sensors/distance-light-movement">Distance, light, movement</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-575"><a href="https://wolles-elektronikkiste.de/en/category/software-and-tools">Software and tools</a>
+</li>
+	<li class="cat-item cat-item-576"><a href="https://wolles-elektronikkiste.de/en/category/sound-en">Sound</a>
+</li>
+	<li class="cat-item cat-item-527"><a href="https://wolles-elektronikkiste.de/en/category/uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-1320"><a href="https://wolles-elektronikkiste.de/en/category/wireless-en-2">wireless</a>
+</li>
+	<li class="cat-item cat-item-548"><a href="https://wolles-elektronikkiste.de/en/category/wireless">Wireless</a>
+<ul class='children'>
+	<li class="cat-item cat-item-545"><a href="https://wolles-elektronikkiste.de/en/category/wireless/433-mhz-en">433 MHz</a>
+</li>
+	<li class="cat-item cat-item-568"><a href="https://wolles-elektronikkiste.de/en/category/wireless/bluetooth-en">Bluetooth</a>
+</li>
+	<li class="cat-item cat-item-569"><a href="https://wolles-elektronikkiste.de/en/category/wireless/infrared">Infrared</a>
+</li>
+	<li class="cat-item cat-item-570"><a href="https://wolles-elektronikkiste.de/en/category/wireless/wlan-en">WLAN</a>
+</li>
+</ul>
+</li>
+			</ul>
+
+			</aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"></div>
+		</aside></div><!-- #secondary -->
+
+	</div><!-- #content -->
+
+	 </div><!--.mega-container-->
+ 	 <div id="footer-sidebar" class="widget-area">
+	 	<div class="container">
+		 						<div class="footer-column col-md-6 col-sm-6"> 
+						<aside id="nav_menu-5" class="widget widget_nav_menu"><h4 class="widget-title title-font hvr-skew-forward">Formales / formal stuff</h4><div class="menu-formal_stuff-container"><ul id="menu-formal_stuff" class="menu"><li id="menu-item-8769" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8769"><a href="https://wolles-elektronikkiste.de/en/legal-notice">Legal notice</a></li>
+</ul></div></aside> 
+					</div> 
+									<div class="footer-column col-md-6 col-sm-6"> 
+						<aside id="nav_menu-6" class="widget widget_nav_menu"><h4 class="widget-title title-font hvr-skew-forward">Anderes / other stuff</h4><div class="menu-other_stuff-container"><ul id="menu-other_stuff" class="menu"><li id="menu-item-8762" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8762"><a href="https://wolles-elektronikkiste.de/?lang=en">Home</a></li>
+<li id="menu-item-8763" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8763"><a href="https://github.com/wollewald">Visit me on Github</a></li>
+</ul></div></aside> 
+					</div> 
+								
+	 	</div>
+	 </div>	<!--#footer-sidebar-->	
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info container">
+			Designed by <a href="https://inkhive.com/" rel="nofollow">Inkhive Web Design</a>.			<span class="sep"></span>
+			&copy; 2023 Wolles Elektronikkiste. All Rights Reserved. 		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+	
+</div><!-- #page -->
+<script></script>
+
+
+        <script>
+            function _katexRender(rootElement) {
+                const eles = rootElement.querySelectorAll(".katex-eq:not(.katex-rendered)");
+                for(let idx=0; idx < eles.length; idx++) {
+                    const ele = eles[idx];
+                    ele.classList.add("katex-rendered");
+                    try {
+                        katex.render(
+                            ele.textContent,
+                            ele,
+                            {
+                                displayMode: ele.getAttribute("data-katex-display") === 'true',
+                                throwOnError: false
+                            }
+                        );
+                    } catch(n) {
+                        ele.style.color="red";
+                        ele.textContent = n.message;
+                    }
+                }
+            }
+
+            function katexRender() {
+                _katexRender(document);
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                katexRender();
+
+                // Perform a KaTeX rendering step when the DOM is mutated.
+                const katexObserver = new MutationObserver(function(mutations) {
+                    [].forEach.call(mutations, function(mutation) {
+                        if (mutation.target && mutation.target instanceof Element) {
+                            _katexRender(mutation.target);
+                        }
+                    });
+                });
+
+                const katexObservationConfig = {
+                    subtree: true,
+                    childList: true,
+                    attributes: true,
+                    characterData: true
+                };
+
+                katexObserver.observe(document.body, katexObservationConfig);
+            });
+
+        </script>
+        
+<!-- Consent Management powered by Complianz | GDPR/CCPA Cookie Consent https://wordpress.org/plugins/complianz-gdpr -->
+<div id="cmplz-cookiebanner-container"><div class="cmplz-cookiebanner cmplz-hidden banner-1 optin cmplz-bottom-right cmplz-categories-type-view-preferences" aria-modal="true" data-nosnippet="true" role="dialog" aria-live="polite" aria-labelledby="cmplz-header-1-optin" aria-describedby="cmplz-message-1-optin">
+	<div class="cmplz-header">
+		<div class="cmplz-logo"></div>
+		<div class="cmplz-title" id="cmplz-header-1-optin">Cookie-Zustimmung verwalten / Manage cookie consent</div>
+		<div class="cmplz-close" tabindex="0" role="button" aria-label="close-dialog">
+			<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+		</div>
+	</div>
+
+	<div class="cmplz-divider cmplz-divider-header"></div>
+	<div class="cmplz-body">
+		<div class="cmplz-message" id="cmplz-message-1-optin">Um dir ein optimales Erlebnis zu bieten, verwenden wir Technologien wie Cookies, um Geräteinformationen zu speichern und/oder darauf zuzugreifen. Wenn du diesen Technologien zustimmst, können wir Daten wie das Surfverhalten oder eindeutige IDs auf dieser Website verarbeiten. Wenn du deine Zustimmung nicht erteilst oder zurückziehst, können bestimmte Merkmale und Funktionen beeinträchtigt werden.<br />
+<br />
+To provide the best experiences, we use technologies like cookies to store and/or access device information. Consenting to these technologies will allow us to process data such as browsing behavior or unique IDs on this site. Not consenting or withdrawing consent, may adversely affect certain features and functions.</div>
+		<!-- categories start -->
+		<div class="cmplz-categories">
+			<details class="cmplz-category cmplz-functional" >
+				<summary>
+						<span class="cmplz-category-header">
+							<span class="cmplz-category-title">Funktional</span>
+							<span class='cmplz-always-active'>
+								<span class="cmplz-banner-checkbox">
+									<input type="checkbox"
+										   id="cmplz-functional-optin"
+										   data-category="cmplz_functional"
+										   class="cmplz-consent-checkbox cmplz-functional"
+										   size="40"
+										   value="1"/>
+									<label class="cmplz-label" for="cmplz-functional-optin" tabindex="0"><span class="screen-reader-text">Funktional</span></label>
+								</span>
+								Always active							</span>
+							<span class="cmplz-icon cmplz-open">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  height="18" ><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+							</span>
+						</span>
+				</summary>
+				<div class="cmplz-description">
+					<span class="cmplz-description-functional">Die technische Speicherung oder der Zugang ist unbedingt erforderlich für den rechtmäßigen Zweck, die Nutzung eines bestimmten Dienstes zu ermöglichen, der vom Teilnehmer oder Nutzer ausdrücklich gewünscht wird, oder für den alleinigen Zweck, die Übertragung einer Nachricht über ein elektronisches Kommunikationsnetz durchzuführen.</span>
+				</div>
+			</details>
+
+			<details class="cmplz-category cmplz-preferences" >
+				<summary>
+						<span class="cmplz-category-header">
+							<span class="cmplz-category-title">Preferences</span>
+							<span class="cmplz-banner-checkbox">
+								<input type="checkbox"
+									   id="cmplz-preferences-optin"
+									   data-category="cmplz_preferences"
+									   class="cmplz-consent-checkbox cmplz-preferences"
+									   size="40"
+									   value="1"/>
+								<label class="cmplz-label" for="cmplz-preferences-optin" tabindex="0"><span class="screen-reader-text">Preferences</span></label>
+							</span>
+							<span class="cmplz-icon cmplz-open">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  height="18" ><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+							</span>
+						</span>
+				</summary>
+				<div class="cmplz-description">
+					<span class="cmplz-description-preferences">The technical storage or access is necessary for the legitimate purpose of storing preferences that are not requested by the subscriber or user.</span>
+				</div>
+			</details>
+
+			<details class="cmplz-category cmplz-statistics" >
+				<summary>
+						<span class="cmplz-category-header">
+							<span class="cmplz-category-title">Statistiken</span>
+							<span class="cmplz-banner-checkbox">
+								<input type="checkbox"
+									   id="cmplz-statistics-optin"
+									   data-category="cmplz_statistics"
+									   class="cmplz-consent-checkbox cmplz-statistics"
+									   size="40"
+									   value="1"/>
+								<label class="cmplz-label" for="cmplz-statistics-optin" tabindex="0"><span class="screen-reader-text">Statistiken</span></label>
+							</span>
+							<span class="cmplz-icon cmplz-open">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  height="18" ><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+							</span>
+						</span>
+				</summary>
+				<div class="cmplz-description">
+					<span class="cmplz-description-statistics">The technical storage or access that is used exclusively for statistical purposes.</span>
+					<span class="cmplz-description-statistics-anonymous">Die technische Speicherung oder der Zugriff, der ausschließlich zu anonymen statistischen Zwecken verwendet wird. Ohne eine Vorladung, die freiwillige Zustimmung deines Internetdienstanbieters oder zusätzliche Aufzeichnungen von Dritten können die zu diesem Zweck gespeicherten oder abgerufenen Informationen allein in der Regel nicht dazu verwendet werden, dich zu identifizieren. Technical storage or access is necessary to create user profiles, to send advertisements, or to track the user on a website or across multiple websites for similar marketing purposes.</span>
+				</div>
+			</details>
+			<details class="cmplz-category cmplz-marketing" >
+				<summary>
+						<span class="cmplz-category-header">
+							<span class="cmplz-category-title">Marketing</span>
+							<span class="cmplz-banner-checkbox">
+								<input type="checkbox"
+									   id="cmplz-marketing-optin"
+									   data-category="cmplz_marketing"
+									   class="cmplz-consent-checkbox cmplz-marketing"
+									   size="40"
+									   value="1"/>
+								<label class="cmplz-label" for="cmplz-marketing-optin" tabindex="0"><span class="screen-reader-text">Marketing</span></label>
+							</span>
+							<span class="cmplz-icon cmplz-open">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  height="18" ><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+							</span>
+						</span>
+				</summary>
+				<div class="cmplz-description">
+					<span class="cmplz-description-marketing">Die technische Speicherung oder der Zugriff ist erforderlich, um Nutzerprofile zu erstellen, um Werbung zu versenden oder um den Nutzer auf einer Website oder über mehrere Websites hinweg zu ähnlichen Marketingzwecken zu verfolgen. Technical storage or access is necessary to create user profiles, to send advertisements, or to track the user on a website or across multiple websites for similar marketing purposes.</span>
+				</div>
+			</details>
+		</div><!-- categories end -->
+			</div>
+
+	<div class="cmplz-links cmplz-information">
+		<a class="cmplz-link cmplz-manage-options cookie-statement" href="#" data-relative_url="#cmplz-manage-consent-container">Manage options</a>
+		<a class="cmplz-link cmplz-manage-third-parties cookie-statement" href="#" data-relative_url="#cmplz-cookies-overview">Manage services</a>
+		<a class="cmplz-link cmplz-manage-vendors tcf cookie-statement" href="#" data-relative_url="#cmplz-tcf-wrapper">Manage vendors</a>
+		<a class="cmplz-link cmplz-external cmplz-read-more-purposes tcf" target="_blank" rel="noopener noreferrer nofollow" href="https://cookiedatabase.org/tcf/purposes/">Read more about these purposes</a>
+			</div>
+
+	<div class="cmplz-divider cmplz-footer"></div>
+
+	<div class="cmplz-buttons">
+		<button class="cmplz-btn cmplz-accept">Akzeptieren / Accept</button>
+		<button class="cmplz-btn cmplz-deny">Ablehnen / Deny</button>
+		<button class="cmplz-btn cmplz-view-preferences">Einstellungen ansehen / Settings</button>
+		<button class="cmplz-btn cmplz-save-preferences">Einstellungen speichern</button>
+		<a class="cmplz-btn cmplz-manage-options tcf cookie-statement" href="#" data-relative_url="#cmplz-manage-consent-container">Einstellungen ansehen / Settings</a>
+			</div>
+
+	<div class="cmplz-links cmplz-documents">
+		<a class="cmplz-link cookie-statement" href="#" data-relative_url="">{title}</a>
+		<a class="cmplz-link privacy-statement" href="#" data-relative_url="">{title}</a>
+		<a class="cmplz-link impressum" href="#" data-relative_url="">{title}</a>
+			</div>
+
+</div>
+</div>
+					<div id="cmplz-manage-consent" data-nosnippet="true"><button class="cmplz-btn cmplz-hidden cmplz-manage-consent manage-consent-1">Zustimmung verwalten</button>
+
+</div><link rel='stylesheet' id='mailpoet_public-css' href='https://wolles-elektronikkiste.de/wp-content/plugins/mailpoet/assets/dist/css/mailpoet-public.9cd759ea.css?ver=6.3' type='text/css' media='all' />
+<link rel='stylesheet' id='mailpoet_custom_fonts_0-css' href='//wolles-elektronikkiste.de/wp-content/uploads/omgf/mailpoet_custom_fonts_0/mailpoet_custom_fonts_0.css?ver=1673087168' type='text/css' media='all' />
+<link rel='stylesheet' id='mailpoet_custom_fonts_1-css' href='//wolles-elektronikkiste.de/wp-content/uploads/omgf/mailpoet_custom_fonts_1/mailpoet_custom_fonts_1.css?ver=1673087168' type='text/css' media='all' />
+<link rel='stylesheet' id='mailpoet_custom_fonts_2-css' href='//wolles-elektronikkiste.de/wp-content/uploads/omgf/mailpoet_custom_fonts_2/mailpoet_custom_fonts_2.css?ver=1673087168' type='text/css' media='all' />
+<style id='core-block-supports-inline-css' type='text/css'>
+.wp-block-gallery.wp-block-gallery-1{--wp--style--unstable-gallery-gap:var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );gap:var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );}
+</style>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/js/navigation.js?ver=20120206' id='amora-navigation-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/themes/amora-pro/js/skip-link-focus-fix.js?ver=20130115' id='amora-skip-link-focus-fix-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-includes/js/comment-reply.min.js?ver=6.3' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/katex/assets/katex-0.13.13/katex.min.js?ver=6.3' id='katex-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/enlighter/cache/enlighterjs.min.js?ver=iKDAv2egpu8eKSw' id='enlighterjs-js'></script>
+<script id="enlighterjs-js-after" type="text/javascript">
+!function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":2,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":false,"textOverflow":"break","linenumbers":true,"theme":"droide","language":"generic","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN_RAW}{BTN_COPY}{BTN_WINDOW}{BTN_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console);
+</script>
+<script type='text/javascript' id='cmplz-cookiebanner-js-extra'>
+/* <![CDATA[ */
+var complianz = {"prefix":"cmplz_","user_banner_id":"1","set_cookies":[],"block_ajax_content":"0","banner_version":"32","version":"6.5.3","store_consent":"","do_not_track_enabled":"1","consenttype":"optin","region":"eu","geoip":"","dismiss_timeout":"","disable_cookiebanner":"","soft_cookiewall":"","dismiss_on_scroll":"","cookie_expiry":"365","url":"https:\/\/wolles-elektronikkiste.de\/en\/wp-json\/complianz\/v1\/","locale":"lang=en&locale=en_US","set_cookies_on_root":"0","cookie_domain":"","current_policy_id":"17","cookie_path":"\/","categories":{"statistics":"statistics","marketing":"marketing"},"tcf_active":"","placeholdertext":"Klicke hier, um {category}-Cookies zu akzeptieren und diesen Inhalt zu aktivieren","aria_label":"Klicke hier, um {category}-Cookies zu akzeptieren und diesen Inhalt zu aktivieren","css_file":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/complianz\/css\/banner-{banner_id}-{type}.css?v=32","page_links":{"eu":{"cookie-statement":{"title":"Cookie Policy","url":"https:\/\/wolles-elektronikkiste.de\/en\/cookie-policy"},"privacy-statement":{"title":"Datenschutzerkl\u00e4rung","url":"https:\/\/wolles-elektronikkiste.de\/privacy-policy"}}},"tm_categories":"","forceEnableStats":"","preview":"","clean_cookies":""};
+/* ]]> */
+</script>
+<script defer type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/complianz-gdpr/cookiebanner/js/complianz.min.js?ver=6.5.3' id='cmplz-cookiebanner-js'></script>
+<script type='text/javascript' id='mailpoet_public-js-extra'>
+/* <![CDATA[ */
+var MailPoetForm = {"ajax_url":"https:\/\/wolles-elektronikkiste.de\/wp-admin\/admin-ajax.php","is_rtl":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/mailpoet/assets/dist/js/public.js?ver=4.24.0' id='mailpoet_public-js'></script>
+<script id="mailpoet_public-js-after" type="text/javascript">
+function initMailpoetTranslation() {
+  if (typeof MailPoet !== 'undefined') {
+    MailPoet.I18n.add('ajaxFailedErrorMessage', 'An error has happened while performing a request, please try again later.')
+  } else {
+    setTimeout(initMailpoetTranslation, 250);
+  }
+}
+setTimeout(initMailpoetTranslation, 250);
+</script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/client/js/prod/lib.core.js?ver=2.9.3' id='slb_core-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/client/js/prod/lib.view.js?ver=2.9.3' id='slb_view-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/themes/baseline/js/prod/client.js?ver=2.9.3' id='slb-asset-slb_baseline-base-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/themes/default/js/prod/client.js?ver=2.9.3' id='slb-asset-slb_default-base-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/template-tags/item/js/prod/tag.item.js?ver=2.9.3' id='slb-asset-item-base-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/template-tags/ui/js/prod/tag.ui.js?ver=2.9.3' id='slb-asset-ui-base-js'></script>
+<script type='text/javascript' src='https://wolles-elektronikkiste.de/wp-content/plugins/simple-lightbox/content-handlers/image/js/prod/handler.image.js?ver=2.9.3' id='slb-asset-image-base-js'></script>
+<script type="text/javascript" id="slb_footer">/* <![CDATA[ */if ( !!window.jQuery ) {(function($){$(document).ready(function(){if ( !!window.SLB && SLB.has_child('View.init') ) { SLB.View.init({"ui_autofit":true,"ui_animate":false,"slideshow_autostart":false,"slideshow_duration":"6","group_loop":true,"ui_overlay_opacity":"0.8","ui_title_default":false,"theme_default":"slb_default","ui_labels":{"loading":"Loading","close":"Close","nav_next":"Next","nav_prev":"Previous","slideshow_start":"Start slideshow","slideshow_stop":"Stop slideshow","group_status":""}}); }
+if ( !!window.SLB && SLB.has_child('View.assets') ) { {$.extend(SLB.View.assets, {"549936114":{"id":12032,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32.jpg","title":"ESP32","caption":"","description":""},"97163684":{"id":12034,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32_Ard_Style.jpg","title":"ESP32_Ard_Style","caption":"","description":""},"406444268":{"id":12036,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32_small.jpg","title":"ESP32_small","caption":"","description":""},"1039277996":{"id":12038,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32_pico.jpg","title":"ESP32_pico","caption":"","description":""},"459095117":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32_on_breadboard-1024x442.jpg"},"2105569308":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/06\/ESP32_dev_board_pinout-1024x497.jpg"},"505669225":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/06\/ADC_ESP32_reliability-1024x626.png"},"2062241670":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/06\/DAC_ESP32__reliability-1024x608.png"},"1749082710":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/06\/PWM_scheme_dc25-1024x416.png"},"529698353":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/pwm_40mhz_78_125_khz-1024x324.png"},"85536440":{"id":13424,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2022\/01\/RT-ZS10L_kurzer-GND-Anschluss.png","title":"RT-ZS10L_kurzer-GND-Anschluss","caption":"","description":""},"259559842":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/ESP32_UART_eng.png"},"742223324":{"id":11973,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/interrupt_test.png","title":"interrupt_test","caption":"","description":""},"485300868":{"id":null,"type":"image","internal":true,"source":"https:\/\/wolles-elektronikkiste.de\/wp-content\/uploads\/2021\/07\/BT_Serial_Terminal-1024x546.png"}});} }
+/* THM */
+if ( !!window.SLB && SLB.has_child('View.extend_theme') ) { SLB.View.extend_theme('slb_baseline',{"name":"Baseline","parent":"","styles":[{"handle":"base","uri":"https:\/\/wolles-elektronikkiste.de\/wp-content\/plugins\/simple-lightbox\/themes\/baseline\/css\/style.css","deps":[]}],"layout_raw":"<div class=\"slb_container\"><div class=\"slb_content\">{{item.content}}<div class=\"slb_nav\"><span class=\"slb_prev\">{{ui.nav_prev}}<\/span><span class=\"slb_next\">{{ui.nav_next}}<\/span><\/div><div class=\"slb_controls\"><span class=\"slb_close\">{{ui.close}}<\/span><span class=\"slb_slideshow\">{{ui.slideshow_control}}<\/span><\/div><div class=\"slb_loading\">{{ui.loading}}<\/div><\/div><div class=\"slb_details\"><div class=\"inner\"><div class=\"slb_data\"><div class=\"slb_data_content\"><span class=\"slb_data_title\">{{item.title}}<\/span><span class=\"slb_group_status\">{{ui.group_status}}<\/span><div class=\"slb_data_desc\">{{item.description}}<\/div><\/div><\/div><div class=\"slb_nav\"><span class=\"slb_prev\">{{ui.nav_prev}}<\/span><span class=\"slb_next\">{{ui.nav_next}}<\/span><\/div><\/div><\/div><\/div>"}); }if ( !!window.SLB && SLB.has_child('View.extend_theme') ) { SLB.View.extend_theme('slb_default',{"name":"Default (Light)","parent":"slb_baseline","styles":[{"handle":"base","uri":"https:\/\/wolles-elektronikkiste.de\/wp-content\/plugins\/simple-lightbox\/themes\/default\/css\/style.css","deps":[]}]}); }})})(jQuery);}/* ]]> */</script>
+<p id="wpml_credit_footer"><a href="https://wpml.org/" rel="nofollow" >Multilingual WordPress</a> with WPML</p><script type="text/javascript" id="slb_context">/* <![CDATA[ */if ( !!window.jQuery ) {(function($){$(document).ready(function(){if ( !!window.SLB ) { {$.extend(SLB, {"context":["public","user_guest"]});} }})})(jQuery);}/* ]]> */</script>
+
+</body>
+</html>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Object Caching 92/754 objects using disk
+Page Caching using disk: enhanced 
+
+Served from: wolles-elektronikkiste.de @ 2023-08-19 19:07:10 by W3 Total Cache
+-->

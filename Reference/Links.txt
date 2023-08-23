@@ -1,0 +1,34 @@
+https://forum.arduino.cc/t/how-to-change-arduino-stm32-pwm-frequency-to-20khz-in-arduino-ide/675557
+
+https://www.cytron.io/tutorial/esp32-pd-line-following-robot-with-maker-line
+
+http://patrickmccabemakes.com/hardware/Maze_Solving_Robot_V3/
+
+https://docs.google.com/document/d/1wZwWl72CKkajTDIyiMxSQ3bwXbWbqW0eq7rdg2MUPeU/edit	Maker Line Datasheet
+
+https://www.hackster.io/cytron-technologies/building-a-low-cost-line-following-robot-c4a32e
+
+https://projecthub.arduino.cc/anova9347/line-follower-robot-with-pid-controller-01813f
+
+https://youtube.com/playlist?list=PLAWsHzw_h0iiPIaGyXAr44G0XfHfyjOe7
+
+https://youtu.be/4Y7zG48uHRo
+
+https://youtu.be/6hx5wwDG0JE
+
+https://youtu.be/8Lj5ycrT9Fw
+
+youtube.com/watch?v=oLBYHbLO8W0&ab_channel=SparkFunElectronics      encoder intro
+
+https://gist.github.com/ShawnHymel/1de08ffaca990b65fade81cb8d01a44a     move bot in straight line with encoder
+
+https://www.youtube.com/watch?v=fusr9eTceEo&ab_channel=GregoryL.Holst       PID demo
+
+https://www.youtube.com/watch?v=wgxb19rqXTE&ab_channel=Kenry
+
+STM32 encoder tutorials:
+https://www.youtube.com/watch?v=xqzWQgpqHmI&ab_channel=ControllersTech
+https://www.youtube.com/watch?v=HunHtmiO2uo&ab_channel=EddieAmaya
+
+
+https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide/all     motor driver

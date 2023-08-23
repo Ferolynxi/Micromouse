@@ -1,0 +1,24 @@
+Software/Tools required:
+Arduino IDE
+STM32CubeProgrammer software
+Other (optional) STM32 softwares like: STM32CubeIDE, STM32CubeMonitor, STM32CubeMX
+
+
+STM32 setup: -
+https://blog.hobbycomponents.com/?p=758
+https://www.sgbotic.com/index.php?dispatch=pages.view&page_id=49
+
+Additional tools and softwares you might like to install and setup:
+https://blog.st.com/stm32cubeide-free-ide/
+https://www.st.com/content/st_com/en/stm32-mcu-developer-zone.html
+https://www.st.com/content/st_com/en/stm32-mcu-developer-zone/software-development-tools.html
+
+
+ESP32 setup: -
+https://randomnerdtutorials.com/getting-started-with-esp32/
+Note: - •Arduino IDE 2.0 is perfect to install and legacy version is not needed anymore.
+	•The blink example from examples of ESP32 in file option in Arduino IDE also works.
+	•The official board manager for ESP32 boards is already available by Espressif Systems in the
+	 boards manager and doesn't require to add any URL in Preferences for the boards manager.
+	•The LED_BUILTIN is already defined in the official board manager and doesn't require to
+	 explicitly define the value for it.

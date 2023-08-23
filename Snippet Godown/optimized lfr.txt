@@ -1,0 +1,64 @@
+// Define the pins for the IR sensor array
+const int IR1 = PA0;
+const int IR2 = PA1;
+const int IR3 = PA2;
+const int IR4 = PA3;
+const int IR5 = PA4;
+
+// Define the pins for the motor driver
+const int motor1A = PB0;
+const int motor1B = PB1;
+const int motor2A = PB6;
+const int motor2B = PB7;
+
+// Define the weights for each sensor
+const float weight1 = 0.1;
+const float weight2 = 0.3;
+const float weight3 = 0.5;
+const float weight4 = 0.7;
+const float weight5 = 0.9;
+
+void setup() {
+  // Initialize the pins for the IR sensor array as analog inputs
+  pinMode(IR1, INPUT_ANALOG);
+  pinMode(IR2, INPUT_ANALOG);
+  pinMode(IR3, INPUT_ANALOG);
+  pinMode(IR4, INPUT_ANALOG);
+  pinMode(IR5, INPUT_ANALOG);
+
+  // Initialize the pins for the motor driver as PWM outputs
+  pinMode(motor1A, PWM);
+  pinMode(motor1B, PWM);
+  pinMode(motor2A, PWM);
+  pinMode(motor2B, PWM);
+}
+
+void loop() {
+  // Read the analog values from the IR sensor array
+  int value1 = analogRead(IR1);
+  int value2 = analogRead(IR2);
+  int value3 = analogRead(IR3);
+  int value4 = analogRead(IR4);
+  int value5 = analogRead(IR5);
+
+  // Calculate the weighted average of the sensor readings
+  float position = (value1 * weight1 + value2 * weight2 + value3 * weight3 + value4 * weight4 + value5 * weight5) / 5.0;
+
+  // Determine the error value based on the position
+  int error = map(position, 0, 4095, -4, 4);
+
+  // Determine the motor speeds based on the error value
+  int leftSpeed = 255;
+  int rightSpeed = 255;
+  if (error < 0) {
+    leftSpeed += error * 30;
+  } else if (error > 0) {
+    rightSpeed -= error * 30;
+  }
+
+  // Set the motor speeds
+  analogWrite(motor1A, leftSpeed);
+  analogWrite(motor1B, 0);
+  analogWrite(motor2A, rightSpeed);
+  analogWrite(motor2B, 0);
+}

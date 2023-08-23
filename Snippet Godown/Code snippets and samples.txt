@@ -1,0 +1,1104 @@
+Snip 1:
+
+#define leftCenterSensor A2
+#define leftNearSensor A1
+#define leftFarSensor A0
+#define rightCenterSensor A3
+#define rightNearSensor A4
+#define rightFarSensor A5
+
+int leftCenterReading;
+int leftNearReading;
+int leftFarReading;
+int rightCenterReading;
+int rightNearReading;
+int rightFarReading;
+
+int leftNudge;
+int replaystage;
+int rightNudge;
+
+#define leapTime 250
+
+#define leftMotor1 4
+#define leftMotor2 7
+
+#define rightMotor1 2
+#define rightMotor2 3
+
+#define led 13
+#define speed 75
+
+char path[30] = {};
+int pathLength;
+int readLength;
+
+void setup() {
+
+  pinMode(leftCenterSensor, INPUT);
+  pinMode(leftNearSensor, INPUT);
+  pinMode(leftFarSensor, INPUT);
+  pinMode(rightCenterSensor, INPUT);
+  pinMode(rightNearSensor, INPUT);
+  pinMode(rightFarSensor, INPUT);
+
+  pinMode(leftMotor1, OUTPUT);
+  pinMode(leftMotor2, OUTPUT);
+  pinMode(rightMotor1, OUTPUT);
+  pinMode(rightMotor2, OUTPUT);
+  pinMode(led, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  analogWrite(5, speed);
+  analogWrite(6, speed);
+  //Serial.begin(115200);
+  digitalWrite(led, HIGH);
+  delay(1000);
+}
+
+
+void loop() {
+
+  readSensors();
+
+  if (leftFarReading == LOW && rightFarReading == LOW && (leftCenterReading == HIGH || rightCenterReading == HIGH)) {
+    straight();
+  } else {
+    leftHandWall();
+  }
+}
+
+void readSensors() {
+
+  leftCenterReading = digitalRead(leftCenterSensor);
+  leftNearReading = digitalRead(leftNearSensor);
+  leftFarReading = digitalRead(leftFarSensor);
+  rightCenterReading = digitalRead(rightCenterSensor);
+  rightNearReading = digitalRead(rightNearSensor);
+  rightFarReading = digitalRead(rightFarSensor);
+
+  // serial printing below for debugging purposes
+
+  // Serial.print("leftCenterReading: ");
+  // Serial.println(leftCenterReading);
+  // Serial.print("leftNearReading: ");
+  // Serial.println(leftNearReading);
+  // Serial.print("leftFarReading: ");
+  // Serial.println(leftFarReading);
+
+  // Serial.print("rightCenterReading: ");
+  // Serial.println(rightCenterReading);
+  // Serial.print("rightNearReading: ");
+  // Serial.println(rightNearReading);
+  // Serial.print("rightFarReading: ");
+  // Serial.println(rightFarReading);
+  // delay(200);
+}
+
+
+void leftHandWall() {
+
+
+  if (leftFarReading == HIGH && rightFarReading == HIGH) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(leapTime);
+    readSensors();
+
+    if (leftFarReading == HIGH || rightFarReading == HIGH) {
+      done();
+    }
+    if (leftFarReading == LOW && rightFarReading == LOW) {
+      turnLeft();
+    }
+  }
+
+  if (leftFarReading == HIGH) {  // if you can turn left then turn left
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(leapTime);
+    readSensors();
+
+    if (leftFarReading == LOW && rightFarReading == LOW) {
+      turnLeft();
+    } else {
+      done();
+    }
+  }
+
+  if (rightFarReading == HIGH) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(30);
+    readSensors();
+
+    if (leftFarReading == HIGH) {
+      delay(leapTime - 30);
+      readSensors();
+
+      if (rightFarReading == HIGH && leftFarReading == HIGH) {
+        done();
+      } else {
+        turnLeft();
+        return;
+      }
+    }
+    delay(leapTime - 30);
+    readSensors();
+    if (leftFarReading == LOW && leftCenterReading == LOW && rightCenterReading == LOW && rightFarReading == LOW) {
+      turnRight();
+      return;
+    }
+    path[pathLength] = 'S';
+    // Serial.println("s");
+    pathLength++;
+    //Serial.print("Path length: ");
+    //Serial.println(pathLength);
+    if (path[pathLength - 2] == 'B') {
+      //Serial.println("shortening path");
+      shortPath();
+    }
+    straight();
+  }
+  readSensors();
+  if (leftFarReading == LOW && leftCenterReading == LOW && rightCenterReading == LOW
+      && rightFarReading == LOW && leftNearReading == LOW && rightNearReading == LOW) {
+    turnAround();
+  }
+}
+void done() {
+  digitalWrite(leftMotor1, LOW);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, LOW);
+  digitalWrite(rightMotor2, LOW);
+  replaystage = 1;
+  path[pathLength] = 'D';
+  pathLength++;
+  while (digitalRead(leftFarSensor) == HIGH) {
+    digitalWrite(led, LOW);
+    delay(150);
+    digitalWrite(led, HIGH);
+    delay(150);
+  }
+  delay(500);
+  replay();
+}
+
+void turnLeft() {
+
+
+
+  while (digitalRead(rightCenterSensor) == HIGH || digitalRead(leftCenterSensor) == HIGH) {
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, HIGH);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+
+  while (digitalRead(rightCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, HIGH);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+
+  if (replaystage == 0) {
+    path[pathLength] = 'L';
+    //Serial.println("l");
+    pathLength++;
+    //Serial.print("Path length: ");
+    //Serial.println(pathLength);
+    if (path[pathLength - 2] == 'B') {
+      //Serial.println("shortening path");
+      shortPath();
+    }
+  }
+}
+
+void turnRight() {
+
+
+  while (digitalRead(rightCenterSensor) == HIGH) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, HIGH);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+  while (digitalRead(rightCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, HIGH);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+  while (digitalRead(leftCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, HIGH);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+
+  if (replaystage == 0) {
+    path[pathLength] = 'R';
+    Serial.println("r");
+    pathLength++;
+    Serial.print("Path length: ");
+    Serial.println(pathLength);
+    if (path[pathLength - 2] == 'B') {
+      Serial.println("shortening path");
+      shortPath();
+    }
+  }
+}
+
+void straight() {
+  if (digitalRead(leftCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(5);
+    return;
+  }
+  if (digitalRead(rightCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, HIGH);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(5);
+    return;
+  }
+
+  digitalWrite(leftMotor1, HIGH);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, HIGH);
+  digitalWrite(rightMotor2, LOW);
+  delay(4);
+  digitalWrite(leftMotor1, LOW);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, LOW);
+  digitalWrite(rightMotor2, LOW);
+  delay(1);
+}
+
+void turnAround() {
+  digitalWrite(leftMotor1, HIGH);
+  digitalWrite(leftMotor2, LOW);
+  digitalWrite(rightMotor1, HIGH);
+  digitalWrite(rightMotor2, LOW);
+  delay(150);
+  while (digitalRead(leftCenterSensor) == LOW) {
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, HIGH);
+    digitalWrite(rightMotor1, HIGH);
+    digitalWrite(rightMotor2, LOW);
+    delay(2);
+    digitalWrite(leftMotor1, LOW);
+    digitalWrite(leftMotor2, LOW);
+    digitalWrite(rightMotor1, LOW);
+    digitalWrite(rightMotor2, LOW);
+    delay(1);
+  }
+  path[pathLength] = 'B';
+  pathLength++;
+  straight();
+  //Serial.println("b");
+  //Serial.print("Path length: ");
+  //Serial.println(pathLength);
+}
+
+void shortPath() {
+  int shortDone = 0;
+  if (path[pathLength - 3] == 'L' && path[pathLength - 1] == 'R') {
+    pathLength -= 3;
+    path[pathLength] = 'B';
+    //Serial.println("test1");
+    shortDone = 1;
+  }
+
+  if (path[pathLength - 3] == 'L' && path[pathLength - 1] == 'S' && shortDone == 0) {
+    pathLength -= 3;
+    path[pathLength] = 'R';
+    //Serial.println("test2");
+    shortDone = 1;
+  }
+
+  if (path[pathLength - 3] == 'R' && path[pathLength - 1] == 'L' && shortDone == 0) {
+    pathLength -= 3;
+    path[pathLength] = 'B';
+    //Serial.println("test3");
+    shortDone = 1;
+  }
+
+
+  if (path[pathLength - 3] == 'S' && path[pathLength - 1] == 'L' && shortDone == 0) {
+    pathLength -= 3;
+    path[pathLength] = 'R';
+    //Serial.println("test4");
+    shortDone = 1;
+  }
+
+  if (path[pathLength - 3] == 'S' && path[pathLength - 1] == 'S' && shortDone == 0) {
+    pathLength -= 3;
+    path[pathLength] = 'B';
+    //Serial.println("test5");
+    shortDone = 1;
+  }
+  if (path[pathLength - 3] == 'L' && path[pathLength - 1] == 'L' && shortDone == 0) {
+    pathLength -= 3;
+    path[pathLength] = 'S';
+    //Serial.println("test6");
+    shortDone = 1;
+  }
+
+  path[pathLength + 1] = 'D';
+  path[pathLength + 2] = 'D';
+  pathLength++;
+  //Serial.print("Path length: ");
+  //Serial.println(pathLength);
+  //printPath();
+}
+
+
+
+
+void printPath() {
+  Serial.println("+++++++++++++++++");
+  int x;
+  while (x <= pathLength) {
+    Serial.println(path[x]);
+    x++;
+  }
+  Serial.println("+++++++++++++++++");
+}
+
+
+void replay() {
+  readSensors();
+  if (leftFarReading == LOW && rightFarReading == LOW) {
+    straight();
+  } else {
+    if (path[readLength] == 'D') {
+      digitalWrite(leftMotor1, HIGH);
+      digitalWrite(leftMotor2, LOW);
+      digitalWrite(rightMotor1, HIGH);
+      digitalWrite(rightMotor2, LOW);
+      delay(100);
+      digitalWrite(leftMotor1, LOW);
+      digitalWrite(leftMotor2, LOW);
+      digitalWrite(rightMotor1, LOW);
+      digitalWrite(rightMotor2, LOW);
+      endMotion();
+    }
+    if (path[readLength] == 'L') {
+      digitalWrite(leftMotor1, HIGH);
+      digitalWrite(leftMotor2, LOW);
+      digitalWrite(rightMotor1, HIGH);
+      digitalWrite(rightMotor2, LOW);
+      delay(leapTime);
+      turnLeft();
+    }
+    if (path[readLength] == 'R') {
+      digitalWrite(leftMotor1, HIGH);
+      digitalWrite(leftMotor2, LOW);
+      digitalWrite(rightMotor1, HIGH);
+      digitalWrite(rightMotor2, LOW);
+      delay(leapTime);
+      turnRight();
+    }
+    if (path[readLength] == 'S') {
+      digitalWrite(leftMotor1, HIGH);
+      digitalWrite(leftMotor2, LOW);
+      digitalWrite(rightMotor1, HIGH);
+      digitalWrite(rightMotor2, LOW);
+      delay(leapTime);
+      straight();
+    }
+
+    readLength++;
+  }
+
+  replay();
+}
+
+void endMotion() {
+  digitalWrite(led, LOW);
+  delay(500);
+  digitalWrite(led, HIGH);
+  delay(200);
+  digitalWrite(led, LOW);
+  delay(200);
+  digitalWrite(led, HIGH);
+  delay(500);
+  endMotion();
+}
+
+
+
+Snip 2
+
+// Define the pin connections for the IR sensor array
+#define IR1 PA0
+#define IR2 PA1
+#define IR3 PA2
+#define IR4 PA3
+#define IR5 PA4
+
+// Define the pin connections for the motor driver
+#define motor1A PB0
+#define motor1B PB1
+#define motor2A PB6
+#define motor2B PB7
+
+void setup() {
+  // Set up the GPIO pins for the IR sensor array as input pins with pull-up resistors
+  pinMode(IR1, INPUT_PULLUP);
+  pinMode(IR2, INPUT_PULLUP);
+  pinMode(IR3, INPUT_PULLUP);
+  pinMode(IR4, INPUT_PULLUP);
+  pinMode(IR5, INPUT_PULLUP);
+
+  // Set up the GPIO pins for the motor driver as output pins
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor1B, OUTPUT);
+  pinMode(motor2A, OUTPUT);
+  pinMode(motor2B, OUTPUT);
+}
+
+void loop() {
+  // Read the digital values from each IR sensor
+  int ir1 = digitalRead(IR1);
+  int ir2 = digitalRead(IR2);
+  int ir3 = digitalRead(IR3);
+  int ir4 = digitalRead(IR4);
+  int ir5 = digitalRead(IR5);
+
+  // Check the sensor readings to determine the direction of the line
+  if (ir1 == LOW && ir2 == HIGH && ir3 == HIGH && ir4 == HIGH && ir5 == LOW) {
+    // Line is going straight ahead
+    digitalWrite(motor1A, HIGH);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, HIGH);
+    digitalWrite(motor2B, LOW);
+  } else if (ir1 == HIGH && ir2 == LOW && ir3 == HIGH && ir4 == HIGH && ir5 == LOW) {
+    // Line is turning slightly to the right
+    digitalWrite(motor1A, HIGH);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, LOW);
+    digitalWrite(motor2B, LOW);
+  } else if (ir1 == LOW && ir2 == HIGH && ir3 == HIGH && ir4 == LOW && ir5 == LOW) {
+    // Line is turning more sharply to the right
+    digitalWrite(motor1A, HIGH);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, LOW);
+    digitalWrite(motor2B, LOW);
+  } else if (ir1 == LOW && ir2 == HIGH && ir3 == LOW && ir4 == HIGH && ir5 == LOW) {
+    // Line is turning slightly to the left
+    digitalWrite(motor1A, LOW);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, HIGH);
+    digitalWrite(motor2B, LOW);
+  } else if (ir1 == LOW && ir2 == LOW && ir3 == HIGH && ir4 == HIGH && ir5 == LOW) {
+    // Line is turning more sharply to the left
+    digitalWrite(motor1A, LOW);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, HIGH);
+    digitalWrite(motor2B, LOW);
+  } else {
+    // Line is lost
+    digitalWrite(motor1A, LOW);
+    digitalWrite(motor1B, LOW);
+    digitalWrite(motor2A, LOW);
+    digitalWrite(motor2B, LOW);
+  }
+}
+//calibrated . taking average .
+
+
+
+These 2 below codes assumes that the IR sensor array is connected to the analog input pins PA0, PA1, PA2, PA3, and PA4, and that the motor driver is connected to the output pins PB0, PB1, PB6, and PB7. The threshold values for each sensor may need to be adjusted depending on the specifics of your robot and environment. Additionally, the motor speed calculation and error value mapping may also need to be adjusted based on the specifics of your robot's design and desired behavio
+Snip 3
+
+// Define the pins for the IR sensor array
+const int IR1 = PA0;
+const int IR2 = PA1;
+const int IR3 = PA2;
+const int IR4 = PA3;
+const int IR5 = PA4;
+
+// Define the pins for the motor driver
+const int motor1A = PB0;
+const int motor1B = PB1;
+const int motor2A = PB6;
+const int motor2B = PB7;
+
+// Define the weights for each sensor
+const float weight1 = 0.1;
+const float weight2 = 0.3;
+const float weight3 = 0.5;
+const float weight4 = 0.7;
+const float weight5 = 0.9;
+
+void setup() {
+  // Initialize the pins for the IR sensor array as analog inputs
+  pinMode(IR1, INPUT_ANALOG);
+  pinMode(IR2, INPUT_ANALOG);
+  pinMode(IR3, INPUT_ANALOG);
+  pinMode(IR4, INPUT_ANALOG);
+  pinMode(IR5, INPUT_ANALOG);
+
+  // Initialize the pins for the motor driver as outputs
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor1B, OUTPUT);
+  pinMode(motor2A, OUTPUT);
+  pinMode(motor2B, OUTPUT);
+}
+
+void loop() {
+  // Read the analog values from the IR sensor array
+  int value1 = analogRead(IR1);
+  int value2 = analogRead(IR2);
+  int value3 = analogRead(IR3);
+  int value4 = analogRead(IR4);
+  int value5 = analogRead(IR5);
+
+  // Calculate the weighted average of the sensor readings
+  float position = (value1 * weight1 + value2 * weight2 + value3 * weight3 + value4 * weight4 + value5 * weight5) / 5.0;
+
+  // Determine the error value based on the position
+  int error = map(position, 0, 4095, -4, 4);
+
+  // Calculate the motor speeds based on the error value
+  int leftSpeed = 255 - error * 30;
+  int rightSpeed = 255 + error * 30;
+
+  // Ensure that the motor speeds are within the valid range
+  leftSpeed = max(0, min(255, leftSpeed));
+  rightSpeed = max(0, min(255, rightSpeed));
+
+  // Set the motor speeds
+  analogWrite(motor1A, leftSpeed);
+  analogWrite(motor1B, 0);
+  analogWrite(motor2A, rightSpeed);
+  analogWrite(motor2B, 0);
+}
+
+
+
+
+Snip 4
+
+
+// Define the pins for the IR sensor array
+const int IR1 = PA0;
+const int IR2 = PA1;
+const int IR3 = PA2;
+const int IR4 = PA3;
+const int IR5 = PA4;
+
+// Define the pins for the motor driver
+const int motor1A = PB0;
+const int motor1B = PB1;
+const int motor2A = PB6;
+const int motor2B = PB7;
+
+// Define the threshold values for each sensor
+const int threshold1 = 2000;
+const int threshold2 = 2000;
+const int threshold3 = 2000;
+const int threshold4 = 2000;
+const int threshold5 = 2000;
+
+void setup() {
+  // Initialize the pins for the IR sensor array as analog inputs
+  pinMode(IR1, INPUT_ANALOG);
+  pinMode(IR2, INPUT_ANALOG);
+  pinMode(IR3, INPUT_ANALOG);
+  pinMode(IR4, INPUT_ANALOG);
+  pinMode(IR5, INPUT_ANALOG);
+
+  // Initialize the pins for the motor driver as outputs
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor1B, OUTPUT);
+  pinMode(motor2A, OUTPUT);
+  pinMode(motor2B, OUTPUT);
+}
+
+void loop() {
+  // Read the analog values from the IR sensor array
+  int value1 = analogRead(IR1);
+  int value2 = analogRead(IR2);
+  int value3 = analogRead(IR3);
+  int value4 = analogRead(IR4);
+  int value5 = analogRead(IR5);
+
+  // Determine the error value based on the sensor readings
+  int error = 0;
+  if (value1 > threshold1) {
+    error -= 4;
+  }
+  if (value2 > threshold2) {
+    error -= 2;
+  }
+  if (value3 > threshold3) {
+    error += 0;
+  }
+  if (value4 > threshold4) {
+    error += 2;
+  }
+  if (value5 > threshold5) {
+    error += 4;
+  }
+
+  // Calculate the motor speeds based on the error value
+  int leftSpeed = 255 - error * 30;
+  int rightSpeed = 255 + error * 30;
+
+  // Ensure that the motor speeds are within the valid range
+  leftSpeed = max(0, min(255, leftSpeed));
+  rightSpeed = max(0, min(255, rightSpeed));
+
+  // Set the motor speeds
+  analogWrite(motor1A, leftSpeed);
+  analogWrite(motor1B, 0);
+  analogWrite(motor2A, rightSpeed);
+  analogWrite(motor2B, 0);
+}
+
+
+
+Whole code snip: uses arduino nano
+
+/*
+ Sample Line Following Code for the Robojunkies LF-2 robot
+*/
+
+#include <SparkFun_TB6612.h>
+
+#define AIN1 4
+#define BIN1 6
+#define AIN2 3
+#define BIN2 7
+#define PWMA 9
+#define PWMB 10
+#define STBY 5
+
+// these constants are used to allow you to make your motor configuration
+// line up with function names like forward.  Value can be 1 or -1
+const int offsetA = 1;
+const int offsetB = 1;
+
+// Initializing motors.  The library will allow you to initialize as many
+// motors as you have memory for.  If you are using functions like forward
+// that take 2 motors as arguements you can either write new functions or
+// call the function more than once.
+
+Motor motor1 = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
+Motor motor2 = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
+
+
+int P, D, I, previousError, PIDvalue, error;
+int lsp, rsp;
+int lfspeed = 200;
+
+float Kp = 0;
+float Kd = 0;
+float Ki = 0 ;
+
+
+int minValues[6], maxValues[6], threshold[6];
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(11, INPUT_PULLUP);
+  pinMode(12, INPUT_PULLUP);
+}
+
+
+void loop()
+{
+  while (digitalRead(11)) {}
+  delay(1000);
+  calibrate();
+  while (digitalRead(12)) {}
+  delay(1000);
+
+  while (1)
+  {
+    if (analogRead(1) > threshold[1] && analogRead(5) < threshold[5] )
+    {
+      lsp = 0; rsp = lfspeed;
+      motor1.drive(0);
+      motor2.drive(lfspeed);
+    }
+
+    else if (analogRead(5) > threshold[5] && analogRead(1) < threshold[1])
+    { lsp = lfspeed; rsp = 0;
+      motor1.drive(lfspeed);
+      motor2.drive(0);
+    }
+    else if (analogRead(3) > threshold[3])
+    {
+      Kp = 0.0006 * (1000 - analogRead(3));
+      Kd = 10 * Kp;
+      //Ki = 0.0001;
+      linefollow();
+    }
+  }
+}
+
+void linefollow()
+{
+  int error = (analogRead(2) - analogRead(4));
+
+  P = error;
+  I = I + error;
+  D = error - previousError;
+
+  PIDvalue = (Kp * P) + (Ki * I) + (Kd * D);
+  previousError = error;
+
+  lsp = lfspeed - PIDvalue;
+  rsp = lfspeed + PIDvalue;
+
+  if (lsp > 255) {
+    lsp = 255;
+  }
+  if (lsp < 0) {
+    lsp = 0;
+  }
+  if (rsp > 255) {
+    rsp = 255;
+  }
+  if (rsp < 0) {
+    rsp = 0;
+  }
+  motor1.drive(lsp);
+  motor2.drive(rsp);
+
+}
+
+void calibrate()
+{
+  for ( int i = 1; i < 6; i++)
+  {
+    minValues[i] = analogRead(i);
+    maxValues[i] = analogRead(i);
+  }
+  
+  for (int i = 0; i < 3000; i++)
+  {
+    motor1.drive(50);
+    motor2.drive(-50);
+
+    for ( int i = 1; i < 6; i++)
+    {
+      if (analogRead(i) < minValues[i])
+      {
+        minValues[i] = analogRead(i);
+      }
+      if (analogRead(i) > maxValues[i])
+      {
+        maxValues[i] = analogRead(i);
+      }
+    }
+  }
+
+  for ( int i = 1; i < 6; i++)
+  {
+    threshold[i] = (minValues[i] + maxValues[i]) / 2;
+    Serial.print(threshold[i]);
+    Serial.print("   ");
+  }
+  Serial.println();
+  
+  motor1.drive(0);
+  motor2.drive(0);
+}
+
+//=====================================================================================
+//snip 5
+//=====================================================================================
+/*
+ * File name: PID_LF_example
+ * 
+ * Hardware requirements:  an Arduino Pro Mini
+ *                        a QTR-8RC Reflectance Sensor Array
+  *                        a DRV8835 Dual Motor Driver Carrier 
+ *                        
+  * Description: The basic PID control system implemented with 
+ *              the  line follower with the specified hardware. 
+ *              The robot can follow  a black line on a white surface 
+ *              (or vice versa). 
+ * Related  Document: See the written documentation or the LF video from
+ *                   Bot  Reboot.
+ *                   
+ * Author: Bot Reboot
+ */
+
+#include  <QTRSensors.h> //Make sure to install the library
+
+/*********
+*  Sensor Array object initialisation 
+**********/
+QTRSensors  qtr;
+const uint8_t SensorCount = 8;
+uint16_t sensorValues[SensorCount];
+
+/*******
+*  PID control system variables 
+*******/
+float  Kp = 0; //related to the proportional control term; 
+              //change the  value by trial-and-error (ex: 0.07).
+float Ki = 0; //related to the integral  control term; 
+              //change the value by trial-and-error (ex: 0.0008).
+float  Kd = 0; //related to the derivative control term; 
+              //change the  value by trial-and-error (ex: 0.6).
+int P;
+int I;
+int D;
+
+/*********
+*  Global variables
+**********/
+int  lastError = 0;
+boolean onoff = false;
+
+/*********
+*  Motor speed variables (choose between 0 - no speed, and 255 - maximum speed)
+**********/
+const  uint8_t maxspeeda = 150;
+const uint8_t maxspeedb = 150;
+const uint8_t basespeeda  = 100;
+const uint8_t basespeedb = 100;
+
+/**********
+*  DRV8835 GPIO pins declaration
+**********/
+int  mode = 8;
+int aphase = 9;
+int aenbl = 6;
+int bphase = 5;
+int benbl =  3;
+
+/********
+*  Buttons pins declaration
+********/
+int  buttoncalibrate = 17; //or pin A3
+int buttonstart = 2;
+
+/**********
+*  Function Name: setup
+*********
+*  Summary:
+* This is the setup function for the Arduino board. It first sets up  the 
+* pins for the sensor array and the motor driver. Then the user needs to  
+* slide the sensors across the line for 10 seconds as they need to be 
+*  calibrated. 
+* 
+* Parameters:
+*  none
+* 
+* Returns:
+*  none
+********************/
+void  setup() {
+  qtr.setTypeRC();
+  qtr.setSensorPins((const uint8_t[]){10, 11,  12, 14, 15, 16, 18, 19}, SensorCount);
+  qtr.setEmitterPin(7);//LEDON PIN
+
+  pinMode(mode, OUTPUT);
+  pinMode(aphase, OUTPUT);
+  pinMode(aenbl, OUTPUT);
+  pinMode(bphase, OUTPUT);
+  pinMode(benbl, OUTPUT);
+  digitalWrite(mode,  HIGH); //one of the two control interfaces 
+                            //(simplified  drive/brake operation)
+  delay(500);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  boolean Ok = false;
+  while (Ok == false) { // the main function won't start  until the robot is calibrated
+    if(digitalRead(buttoncalibrate) == HIGH) {
+      calibration(); //calibrate the robot for 10 seconds
+      Ok = true;
+    }
+  }
+  forward_brake(0, 0); //stop the motors
+}
+
+/*********
+*  Function Name: calibration
+**********
+*  Summary:
+* This is the calibration function for the QTR-8RC Reflectance Sensor  Array. 
+* The function calls the method 'qtr.calibrate()' offered by the imported  
+* library. For approx. 10 seconds, each of the 8 sensors will calibrate with
+*  readings from the track. 
+* 
+* Parameters:
+*  none
+* 
+* Returns:
+*  none
+************/
+void  calibration() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  for (uint16_t i = 0;  i < 400; i++)
+  {
+    qtr.calibrate();
+  }
+  digitalWrite(LED_BUILTIN,  LOW);
+}
+
+/************
+*  Function Name: loop
+*************
+*  Summary:
+* This is the main function of this application. When the start button  is
+* pressed, the robot will toggle between following the track and stopping.
+*  When following the track, the function calls the PID control method. 
+* 
+*  Parameters:
+*  none
+* 
+* Returns:
+*  none
+*************/
+void  loop() {
+  if(digitalRead(buttonstart) == HIGH) {
+    onoff =! onoff;
+    if(onoff = true) {
+      delay(1000);//a delay when the robot starts
+    }
+    else {
+      delay(50);
+    }
+  }
+  if (onoff == true)  {
+    PID_control();
+  }
+  else {
+    forward_brake(0,0); //stop the  motors
+  }
+}
+
+/**********
+*  Function Name: forward_brake
+**********
+*  Summary:
+* This is the control interface function of the motor driver. As shown  in
+* the Pololu's documentation of the DRV8835 motor driver, when the MODE is  
+* equal to 1 (the pin is set to output HIGH), the robot will go forward at
+*  the given speed specified by the parameters. The phase pins control the
+* direction  of the spin, and the enbl pins control the speed of the motor.
+* 
+* A warning  though, depending on the wiring, you might need to change the 
+* aphase and bphase  from LOW to HIGH, in order for the robot to spin forward. 
+* 
+* Parameters:
+*  int posa: int value from 0 to 255; controls the speed of the motor A.
+*  int  posb: int value from 0 to 255; controls the speed of the motor B.
+* 
+* Returns:
+*  none
+**********/
+void  forward_brake(int posa, int posb) {
+  //set the appropriate values for aphase  and bphase so that the robot goes straight
+  digitalWrite(aphase, LOW);
+  digitalWrite(bphase,  LOW);
+  analogWrite(aenbl, posa);
+  analogWrite(benbl, posb);
+}
+
+/************
+*  Function Name: PID_control
+************
+*  Summary: 
+* This is the function of the PID control system. The distinguishing  
+* feature of the PID controller is the ability to use the three control 
+*  terms of proportional, integral and derivative influence on the controller 
+*  output to apply accurate and optimal control. This correction is applied to
+*  the speed of the motors, which should be in range of the interval [0, max_speed],
+*  max_speed <= 255. 
+* 
+* Parameters:
+* none
+* 
+* Returns:
+*  none
+******************/
+void  PID_control() {
+  uint16_t position = qtr.readLineBlack(sensorValues); //read  the current position
+  int error = 3500 - position; //3500 is the ideal position  (the centre)
+
+  P = error;
+  I = I + error;
+  D = error - lastError;
+  lastError = error;
+  int motorspeed = P*Kp + I*Ki + D*Kd; //calculate the correction
+                                       //needed to be applied to the speed
+  
+  int motorspeeda = basespeeda + motorspeed;
+  int motorspeedb = basespeedb -  motorspeed;
+  
+  if (motorspeeda > maxspeeda) {
+    motorspeeda = maxspeeda;
+  }
+  if (motorspeedb > maxspeedb) {
+    motorspeedb = maxspeedb;
+  }
+  if (motorspeeda < 0) {
+    motorspeeda = 0;
+  }
+  if (motorspeedb < 0)  {
+    motorspeedb = 0;
+  } 
+  forward_brake(motorspeeda, motorspeedb);
+}
